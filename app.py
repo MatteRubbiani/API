@@ -9,6 +9,7 @@ from resources.createclass import CreateClass
 from resources.joinclass import JoinClass
 from resources.friend import Friend
 from resources.tag import Tag
+from resource.base import Base
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
@@ -34,6 +35,7 @@ api.add_resource(CreateClass, "/class/create")
 api.add_resource(JoinClass, "/class/join")
 api.add_resource(Friend, "/user/friend")
 api.add_resource(Tag, "/class/tag")
+api.add_resource(Base, "/")
 
 
 
