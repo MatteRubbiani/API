@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
-from db import db
+
 
 from resources.register import Register
 from security import identity, authenticate
@@ -17,9 +17,7 @@ app.secret_key="Matteo"
 api=Api(app)
 
 
-@app.before_first_request
-def create_table():
-    db.create_all()
+
 
 
 
@@ -40,6 +38,6 @@ api.add_resource(Tag, "/class/tag")
 
 
 if __name__=="__main__":
-
+    from db import db
     db.init_app(app)
     app.run(port=5000, debug=True)
