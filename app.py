@@ -9,7 +9,7 @@ from resources.createclass import CreateClass
 from resources.joinclass import JoinClass
 from resources.friend import Friend
 from resources.tag import Tag
-from resource.base import Base
+from resources.base import Base
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
