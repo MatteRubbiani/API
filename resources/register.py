@@ -25,5 +25,4 @@ class Register(Resource):
         user=UserModel(None, mail, username, password, None, None, now, None)
 
         user.save_to_db()
-        return user.creation_date
-        return {"message":"User created successfuly"}, 200
+        return "user created successfully", 200

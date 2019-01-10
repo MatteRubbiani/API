@@ -46,10 +46,10 @@ class UserModel(db.Model):
 
 
 
-def add_to_class (mail, classe):
+def add_to_class (mail, classe_id):
     user=UserModel.query.filter_by(mail=mail).first()
-    user.classe_id=classe
-    UserModel.save_to_db(user)
+    user.classe_id=classe_id
+    user.save_to_db()
 
 def class_users (classe_id):
     users= UserModel.query.filter_by(classe_id=classe_id)
