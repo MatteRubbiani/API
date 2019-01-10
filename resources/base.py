@@ -1,4 +1,4 @@
 from flask_restful import Resource
-class Base (Resources):
+class Base (Resource):
     def get(self):
         return "benvenuti nell'api di matteo il re della doppietta"
