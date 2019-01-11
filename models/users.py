@@ -10,7 +10,7 @@ class UserModel(db.Model):
     friend_id=db.Column(db.Integer)
     classe_id=db.Column(db.Integer)
     creation_date=db.Column(db.String(30))
-    frindship=db.Column(db.Boolean)
+    friendship=db.Column(db.Boolean)
 
 
     def __init__(self, id, mail, username, password, classe_id, friend_id, creation_date, friendship):
@@ -56,8 +56,9 @@ def class_users (classe_id):
     list=[]
     if users:
         for i in  users:
-            list.append(i)
+            list.append(i.username)
         return list
+
 
 
 def find_friend_by_username(classe_id, friendname):

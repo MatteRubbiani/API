@@ -10,6 +10,10 @@ from resources.joinclass import JoinClass
 from resources.friend import Friend
 from resources.tag import Tag
 from resources.base import Base
+from resources.makeadmin import MakeAdmin
+from resources.mates import Mates
+from resources.isadmin import IsAdmin
+from resources.gotmate import GotMate 
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
@@ -26,6 +30,11 @@ jwt = JWT (app, authenticate, identity)
 app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 #app.config['JWT_EXPIRATION_DELTA'] =seconds=1800000
 
+@app.before_first_request
+def create_table():
+    db.create_all()
+
+
 
 
 
@@ -35,7 +44,11 @@ api.add_resource(CreateClass, "/class/create")
 api.add_resource(JoinClass, "/class/join")
 api.add_resource(Friend, "/user/friend")
 api.add_resource(Tag, "/class/tag")
-api.add_resource(Base, "/")
+#api.add_resource(Base, "/")
+api.add_resource(MakeAdmin, "/class/admin")
+api.add_resource(Mates, "/class/mates")
+api.add_resource(IsAdmin, "/user/isadmin")
+api.add_resource(GotMate, "/user/gotmate")
 
 
 

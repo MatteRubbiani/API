@@ -22,6 +22,9 @@ class Friend (Resource):
                     mate.save_to_db()
                     user.save_to_db()
 
+                    #test=[user.friendship, mate.friendship, user.id, user.friend_id, mate.friend_id]
+                    ###return test
+
                     return "friendship confirmed"
                 user.friendship=False
                 user.save_to_db
@@ -44,7 +47,7 @@ class Friend (Resource):
                     mate.friendship=False
                     mate.save_to_db()
                     user.save_to_db()
-                    return user.friend_id
+                    #return user.friend_id
                     return "friendship removed"
 
                 user.friend_id=None
