@@ -15,6 +15,7 @@ from resources.mates import Mates
 from resources.isadmin import IsAdmin
 from resources.gotmate import GotMate
 from resources.createsubject import CreateSubject
+from resources.createorario import CreateOrario
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
@@ -52,6 +53,7 @@ api.add_resource(IsAdmin, "/user/isadmin")
 api.add_resource(GotMate, "/user/gotmate")
 
 api.add_resource(CreateSubject, "/subject/create")
+api.add_resource(CreateOrario, "/timetable/create")
 
 
 
