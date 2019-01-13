@@ -32,9 +32,9 @@ jwt = JWT (app, authenticate, identity)
 app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 #app.config['JWT_EXPIRATION_DELTA'] =seconds=1800000
 
-@app.before_first_request
-def create_table():
-    db.create_all()
+#@app.before_first_request
+#def create_table():
+    #db.create_all()
 
 
 
