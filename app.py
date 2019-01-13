@@ -13,7 +13,8 @@ from resources.base import Base
 from resources.makeadmin import MakeAdmin
 from resources.mates import Mates
 from resources.isadmin import IsAdmin
-from resources.gotmate import GotMate 
+from resources.gotmate import GotMate
+from resources.createsubject import CreateSubject
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
@@ -49,6 +50,8 @@ api.add_resource(MakeAdmin, "/class/admin")
 api.add_resource(Mates, "/class/mates")
 api.add_resource(IsAdmin, "/user/isadmin")
 api.add_resource(GotMate, "/user/gotmate")
+
+api.add_resource(CreateSubject, "/subject/create")
 
 
 

@@ -11,9 +11,10 @@ class UserModel(db.Model):
     classe_id=db.Column(db.Integer)
     creation_date=db.Column(db.String(30))
     friendship=db.Column(db.Boolean)
+    admin=db.Column(db.Boolean)
 
 
-    def __init__(self, id, mail, username, password, classe_id, friend_id, creation_date, friendship):
+    def __init__(self, id, mail, username, password, classe_id, friend_id, creation_date, friendship, admin):
         self.id=id
         self.mail=mail
         self.username=username
@@ -22,6 +23,7 @@ class UserModel(db.Model):
         self.friend_id=friend_id
         self.creation_date=creation_date
         self.friendship=friendship
+        self.admin=admin
 
 
     @classmethod
@@ -58,6 +60,15 @@ def class_users (classe_id):
         for i in  users:
             list.append(i.username)
         return list
+
+def class_mates (classe_id):
+    users= UserModel.query.filter_by(classe_id=classe_id)
+    list=[]
+    if users:
+        for i in  users:
+            list.append(i.id)
+        return list
+    return None
 
 
 

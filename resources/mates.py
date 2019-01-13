@@ -1,6 +1,6 @@
 from flask_restful import Resource, request
 from models.users import UserModel, class_users
-from models.classes import find_by_id, find_by_admin
+from models.classes import find_by_id
 
 class Mates (Resource):
     def get (self):

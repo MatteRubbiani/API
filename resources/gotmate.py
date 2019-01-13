@@ -10,4 +10,6 @@ class GotMate (Resource):
         if user:
             if user.friendship:
                     return True
+            if user.friend_id:
+                return "requested"
         return False
