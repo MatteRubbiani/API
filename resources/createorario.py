@@ -23,7 +23,7 @@ class CreateOrario(Resource):
                     materia_id=find_subject_id(user.classe_id, materia)
                     if existing:
                         if materia=="":
-                            existing.materia_id=""
+                            existing.materia=""
                             existing.save_to_db()
                             return "slot subject set to empty"
                         if materia_id:

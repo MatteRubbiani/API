@@ -27,14 +27,21 @@ class JoinClass(Resource):
             return "class does not exist" , 400
         return "user does not exist", 400
 
-        #ricorda di aggiungere che automaticamente si crea l'orario
     def delete (self):
         data=request.get_json()
         mail=data[0]
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
-                classe=find_by_id(user.classe_id)
+                mate=UserModel.find_by_id(user.friend_id)
+                user.friend_id=None
+                user.friendship=True
+                user.save_to_db
+                if mate:
+                    if mate.friend_id==user.id:
+                        mate.friend_id=None
+                        mate.friendship=False
+                        mate.save_to_db()
                 if user.admin==True:
                     amici=class_mates(user.classe_id)
                     if len(amici)>1:

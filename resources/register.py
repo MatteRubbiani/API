@@ -22,7 +22,7 @@ class Register(Resource):
 
         now = datetime.datetime.now()
 
-        user=UserModel(None, mail, username, password, None, None, now, None, None)
+        user=UserModel(None, mail, username, password, None, None, now, None, False)
 
         user.save_to_db()
         return "user created successfully", 200

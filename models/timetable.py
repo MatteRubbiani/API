@@ -21,6 +21,11 @@ class TimetableModel(db.Model):
         self.ora=ora
         self.materia_id=materia_id
 
+    @classmethod
+    def find_by_id (cls, id):
+        a=TimetableModel.query.filter_by(id=id).first()
+        return a
+
 
 
 
@@ -34,6 +39,13 @@ class TimetableModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+def find_id_by_giorno_id(classe_id, giorno_id):
+    materie=TimetableModel.query.filter_by(classe_id=classe_id, giorno_id=giorno_id)
+    orario_del_giorno=[]
+    for i in materie:
+        orario_del_giorno.append(i.id)
+    return orario_del_giorno
 
 
 def find_by_giorno_id(classe_id, giorno_id):

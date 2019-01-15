@@ -20,7 +20,7 @@ class SubjectModel(db.Model):
 
     @classmethod
     def find_by_id(cls, id):
-        return UserModel.query.filter_by(id=id).first()
+        return SubjectModel.query.filter_by(id=id).first()
 
 
 
