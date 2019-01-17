@@ -21,6 +21,8 @@ from resources.createsubject import CreateSubject
 from resources.createorario import CreateOrario
 from resources.daytimetable import OrarioGiorno
 from resources.put import Put
+from resources.confirm_mail import ConfirmMail
+from resources.provemail import Prove
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("HEROKU_POSTGRESQL_COBALT_URL","sqlite:///data.db")
@@ -37,9 +39,9 @@ jwt = JWT (app, authenticate, identity)
 app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
 
-#@app.before_first_request
-#def create_table():
-    #db.create_all()
+@app.before_first_request
+def create_table():
+    db.create_all()
 
 
 
@@ -51,7 +53,7 @@ api.add_resource(CreateClass, "/class/create")
 api.add_resource(JoinClass, "/class/join")
 api.add_resource(Friend, "/user/friend")
 api.add_resource(Tag, "/class/tag")
-#api.add_resource(Base, "/")
+api.add_resource(ConfirmMail, "/confirm/<string:token>")
 api.add_resource(MakeAdmin, "/class/admin")
 api.add_resource(Mates, "/class/mates")
 api.add_resource(IsAdmin, "/user/isadmin")
@@ -61,6 +63,7 @@ api.add_resource(CreateSubject, "/subject/create")
 api.add_resource(CreateOrario, "/timetable/create")
 api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
+api.add_resource(Prove, "/prove")
 
 
 if __name__=="__main__":
