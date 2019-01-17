@@ -17,4 +17,5 @@ class ConfirmMail (Resource):
         user=UserModel.find_by_mail(mail)
         if user:
             user.confirmed=True
+            user.save_to_db()
             return "user confirmed"
