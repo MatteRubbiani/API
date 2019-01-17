@@ -15,7 +15,8 @@ class ConfirmMail (Resource):
         s = URLSafeTimedSerializer("password1")
         mail=s.loads(token, salt="emailconfirm", max_age=1800)
         user=UserModel.find_by_mail(mail)
-        if user:
+        if user.confirmed==False:
             user.confirmed=True
             user.save_to_db()
             return "user confirmed"
+        return "banana"
