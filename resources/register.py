@@ -31,7 +31,7 @@ class Register(Resource):
         token=s.dumps(mail, salt="emailconfirm")
 
 
-        link="http://127.0.0.1:5000/confirm/"+token
+        link="https://smartmates.herokuapp.com/confirm/confirm/"+token
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
