@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flask_restful import Api
-from flask_jwt import JWT, jwt_required
+from flask_jwt import JWT
 from datetime import timedelta
 
 
@@ -22,17 +22,14 @@ from resources.createorario import CreateOrario
 from resources.daytimetable import OrarioGiorno
 from resources.put import Put
 from resources.confirm_mail import ConfirmMail
-from resources.provemail import Prove
+
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("HEROKU_POSTGRESQL_COBALT_URL","sqlite:///data.db")
 #app.config["SQLALCHEMY_TRAK_MODIFICATIONS"]=False
 app.secret_key="Matteo"
 api=Api(app)
-app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
-
-
-
+#app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
 
 
 jwt = JWT (app, authenticate, identity)
@@ -49,7 +46,6 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
 
 api.add_resource(Register, "/register")
 api.add_resource(CreateClass, "/class/create")
-#api.add_resource(CreateMaterie, "/creatematerie/<string:name>")
 api.add_resource(JoinClass, "/class/join")
 api.add_resource(Friend, "/user/friend")
 api.add_resource(Tag, "/class/tag")
@@ -58,12 +54,10 @@ api.add_resource(MakeAdmin, "/class/admin")
 api.add_resource(Mates, "/class/mates")
 api.add_resource(IsAdmin, "/user/isadmin")
 api.add_resource(GotMate, "/user/gotmate")
-
 api.add_resource(CreateSubject, "/subject/create")
 api.add_resource(CreateOrario, "/timetable/create")
 api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
-api.add_resource(Prove, "/prove")
 
 
 if __name__=="__main__":
