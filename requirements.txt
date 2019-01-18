@@ -5,5 +5,4 @@ Flask-SQLAlchemy
 uwsgi
 psycopg2
 datetime
-email.MIMEMultipart
-email.MIMEText
+MIMEM
