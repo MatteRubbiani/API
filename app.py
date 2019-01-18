@@ -6,7 +6,7 @@ from flask_jwt import JWT
 from datetime import timedelta
 
 
-from resources.register import Register
+#from resources.register import Register
 from security import identity, authenticate
 from resources.createclass import CreateClass
 from resources.joinclass import JoinClass
@@ -44,7 +44,7 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
 
 
 
-api.add_resource(Register, "/register")
+#api.add_resource(Register, "/register")
 api.add_resource(CreateClass, "/class/create")
 api.add_resource(JoinClass, "/class/join")
 api.add_resource(Friend, "/user/friend")
