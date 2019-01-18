@@ -35,7 +35,7 @@ class Register(Resource):
         #link="https://smartmates.herokuapp.com/confirm/"+token
 
         text = """
-
+/n/n
 Hello!
 Thanks for signing up!
 Click the link below to confirm your email adress and start using your account!
@@ -52,8 +52,18 @@ Team SmartMates
 
 
          """.format(link)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login("smartmates2018@gmail.com", "smartmates1")
+        server.sendmail("smartmates2018gmail.com", mail, text)
 
-        fromaddr = "smartmates2018@gmail.com"
+        return "user created, to be confirmed", 200
+
+
+
+        """fromaddr = "smartmates2018@gmail.com"
         toaddr = mail
         msg = MIMEMultipart()
         msg['From'] = fromaddr
@@ -67,11 +77,4 @@ Team SmartMates
         server.ehlo()
         server.login("smartmates2018@gmail.com", "smartmates1")
         text = msg.as_string()
-        server.sendmail(fromaddr, toaddr, text)
-
-
-
-
-
-
-        return "user created, to be confirmed", 200
+        server.sendmail(fromaddr, toaddr, text)"""
