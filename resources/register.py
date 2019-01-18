@@ -1,8 +1,9 @@
-from flask_restful import Resource, reqparse, request
-from flask_jwt import jwt_required
+from flask_restful import Resource, request
 import datetime
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 
 from db import db
 
@@ -30,29 +31,47 @@ class Register(Resource):
         s = URLSafeTimedSerializer("password1")
         token=s.dumps(mail, salt="emailconfirm")
 
+        link="http://127.0.0.1:5000/confirm/"+token
+        #link="https://smartmates.herokuapp.com/confirm/"+token
 
-        link="https://smartmates.herokuapp.com/confirm/"+token
-
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login("smartmates2018@gmail.com", "cognento")
         text = """
+
 Hello!
 Thanks for signing up!
 Click the link below to confirm your email adress and start using your account!
 
+
 {}
 
+If you didn't ask for an account don't worry, someone probably mispelt their email address.
 
-If you didn't ask for an account dont't worry, someone probably mispelt their email address.
+
+Kind Regards,
 
 Team SmartMates
 
 
-        """.format(link)
-        server.sendmail("smartmates2018@gmail.com", mail, text)
+         """.format(link)
+
+        fromaddr = "smartmates2018@gmail.com"
+        toaddr = mail
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = "Confirm your account on SmartMates"
+        body = text
+        msg.attach(MIMEText(body, 'plain'))
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login("smartmates2018@gmail.com", "smartmates1")
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+
+
+
+
 
 
         return "user created, to be confirmed", 200

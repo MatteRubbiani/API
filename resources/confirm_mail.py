@@ -1,5 +1,4 @@
 import smtplib
-from flask import url_for
 from flask_restful import request, Resource
 from itsdangerous import URLSafeTimedSerializer
 from models.users import UserModel
@@ -20,5 +19,5 @@ class ConfirmMail (Resource):
                 user.confirmed=True
                 user.save_to_db()
                 return "user confirmed"
-            return "MELA"
-        return "banana"
+            return "user already confirmed"
+        return "user does not exist"
