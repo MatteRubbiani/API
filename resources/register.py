@@ -2,8 +2,7 @@ from flask_restful import Resource, request
 import datetime
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+
 
 from db import db
 
