@@ -26,7 +26,7 @@ from resources.confirm_mail import ConfirmMail
 
 app= Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("HEROKU_POSTGRESQL_COBALT_URL","sqlite:///data.db")
-#app.config["SQLALCHEMY_TRAK_MODIFICATIONS"]=False
+app.config["SQLALCHEMY_TRAK_MODIFICATIONS"]=False
 app.secret_key="Matteo"
 api=Api(app)
 #app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"

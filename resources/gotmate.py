@@ -8,7 +8,7 @@ class GotMate (Resource):
         mail=data[0]
         user=UserModel.find_by_mail(mail)
         if user:
-            if user.friendship:
+            if user.friendship==True:
                     return True
             if user.friend_id:
                 return "requested"
