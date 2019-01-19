@@ -4,6 +4,11 @@ from flask_jwt import jwt_required
 
 from models.classes import ClassModel, find_by_tag, find_by_id
 from models.users import UserModel, add_to_class, find_friend_by_username, class_mates
+from models.timetable import delete_timetable_by_classe_id, find_id_by_giorno_id
+from models.subjects import delete_subjects_by_class_id
+from models.friends import delete_slots_by_user_id
+
+
 
 class JoinClass(Resource):
 
@@ -33,10 +38,11 @@ class JoinClass(Resource):
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
+                delete_slots_by_user_id(user.id)
                 mate=UserModel.find_by_id(user.friend_id)
                 user.friend_id=None
                 user.friendship=True
-                user.save_to_db
+                user.save_to_db()
                 if mate:
                     if mate.friend_id==user.id:
                         mate.friend_id=None
@@ -63,11 +69,13 @@ class JoinClass(Resource):
                                 user.save_to_db()
                                 return "user was admin, there were no other admin, one was created, user correctly removed from class "
                     classe=find_by_id(user.classe_id)
+                    delete_subjects_by_class_id(user.classe_id)
+                    delete_timetable_by_classe_id(user.classe_id)
                     classe.delete_from_db()
                     user.classe_id=None
                     user.admin=False
                     user.save_to_db()
-                    return "user had no classmates, was admin, class was deleted"
+                    return "user had no classmates, class was deleted"
                 user.classe_id=None
                 user.save_to_db()
                 return "user was not admin, user removed correctly"

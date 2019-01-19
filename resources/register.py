@@ -65,18 +65,4 @@ Team SmartMates
 
 
 
-        """fromaddr = "smartmates2018@gmail.com"
-        toaddr = mail
-        msg = MIMEMultipart()
-        msg['From'] = fromaddr
-        msg['To'] = toaddr
-        msg['Subject'] = "Confirm your account on SmartMates"
-        body = text
-        msg.attach(MIMEText(body, 'plain'))
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login("smartmates2018@gmail.com", "smartmates1")
-        text = msg.as_string()
-        server.sendmail(fromaddr, toaddr, text)"""
+    

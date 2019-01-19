@@ -33,6 +33,10 @@ class SubjectModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+def delete_subjects_by_class_id(classe_id):
+    materie=SubjectModel.query.filter_by(classe_id=classe_id)
+    for i in materie:
+        i.delete_from_db()
 
 
 def find_by_classe_id(classe_id):

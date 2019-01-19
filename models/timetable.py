@@ -40,6 +40,12 @@ class TimetableModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+def delete_timetable_by_classe_id(classe_id):
+    materie=TimetableModel.query.filter_by(classe_id=classe_id)
+    for i in materie:
+        i.delete_from_db()
+
+
 def find_id_by_giorno_id(classe_id, giorno_id):
     materie=TimetableModel.query.filter_by(classe_id=classe_id, giorno_id=giorno_id)
     orario_del_giorno=[]

@@ -38,3 +38,9 @@ class FriendModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+
+def delete_slots_by_user_id(user_id):
+    slots=FriendModel.query.filter_by(user_id=user_id)
+    for i in slots:
+        i.delete_from_db()
