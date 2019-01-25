@@ -6,6 +6,7 @@ from flask_jwt import jwt_required
 
 class Friend (Resource):
 
+    @jwt_required
     def post (self):
         data=request.get_json()
         mail=data[0]
@@ -21,10 +22,6 @@ class Friend (Resource):
                     mate.friendship=True
                     mate.save_to_db()
                     user.save_to_db()
-
-                    #test=[user.friendship, mate.friendship, user.id, user.friend_id, mate.friend_id]
-                    ###return test
-
                     return "friendship confirmed"
                 user.friendship=False
                 user.save_to_db
@@ -32,6 +29,8 @@ class Friend (Resource):
             return "mate does not exist"
         return "user does not exist"
 
+
+    @jwt_required
     def delete(self):
         data=request.get_json()
         mail=data[0]
@@ -39,17 +38,13 @@ class Friend (Resource):
         if user:
             mate= UserModel.find_by_id(user.friend_id)
             if mate:
-
                 if mate.friend_id==user.id:
-
                     user.friend_id=None
                     user.friendship=False
                     mate.friendship=False
                     mate.save_to_db()
                     user.save_to_db()
-                    #return user.friend_id
                     return "friendship removed"
-
                 user.friend_id=None
                 user.friendship=False
                 user.save_to_db()

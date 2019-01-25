@@ -1,10 +1,8 @@
 import os
-
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
-
 
 from resources.register import Register
 from security import identity, authenticate
@@ -12,7 +10,6 @@ from resources.createclass import CreateClass
 from resources.joinclass import JoinClass
 from resources.friend import Friend
 from resources.tag import Tag
-from resources.base import Base
 from resources.makeadmin import MakeAdmin
 from resources.mates import Mates
 from resources.isadmin import IsAdmin
@@ -29,7 +26,6 @@ app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("HEROKU_POSTGRESQL_COBALT_U
 app.config["SQLALCHEMY_TRAK_MODIFICATIONS"]=False
 app.secret_key="Matteo"
 api=Api(app)
-#app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///data.db"
 
 
 jwt = JWT (app, authenticate, identity)

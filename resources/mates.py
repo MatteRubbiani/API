@@ -1,8 +1,10 @@
 from flask_restful import Resource, request
 from models.users import UserModel, class_users
 from models.classes import find_by_id
+from flask_jwt import jwt_required
 
 class Mates (Resource):
+    @jwt_required
     def get (self):
         data=request.get_json()
         mail=data[0]

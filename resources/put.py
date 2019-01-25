@@ -10,6 +10,8 @@ from models.subjects import SubjectModel, find_subject_id
 from models.friends import FriendModel
 
 class Put (Resource):
+
+    @jwt_required
     def post (self):
         data=request.get_json()
         mail=data[0]
@@ -35,6 +37,8 @@ class Put (Resource):
             return "user has no class"
         return "user does not exist"
 
+
+    @jwt_required
     def delete (self):
         data=request.get_json()
         mail=data[0]
@@ -58,7 +62,7 @@ class Put (Resource):
             return "user has no class"
         return "user does not exist"
 
-
+    @jwt_required
     def get (self):
         data=request.get_json()
         mail=data[0]
@@ -84,9 +88,6 @@ class Put (Resource):
                         ore=TimetableModel.find_by_id(i)
                         final.append(ore.ora)
                     return final
-
-
-
                 return "user has no mate"
             return "user has no class"
         return "user does not exist"

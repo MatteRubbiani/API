@@ -12,7 +12,7 @@ from models.friends import delete_slots_by_user_id
 
 class JoinClass(Resource):
 
-    #@jwt_required()
+    @jwt_required()
     def post(self):
         data=request.get_json()
         mail=data[0]
@@ -32,6 +32,7 @@ class JoinClass(Resource):
             return "class does not exist" , 400
         return "user does not exist", 400
 
+    @jwt_required()
     def delete (self):
         data=request.get_json()
         mail=data[0]

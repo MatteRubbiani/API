@@ -8,7 +8,7 @@ from models.subjects import SubjectModel, find_subject_id
 
 class CreateSubject(Resource):
 
-    #@jwt_required()
+    @jwt_required()
     def post(self):
         data=request.get_json()
         mail=data[0]

@@ -19,8 +19,8 @@ class Register(Resource):
         username=data[1]
         password=data[2]
         user=UserModel.find_by_mail(mail)
-        #if user:
-            #return "mail already taken", 400
+        if user:
+            return "mail already taken", 400
 
         now = datetime.datetime.now()
 
@@ -33,21 +33,21 @@ class Register(Resource):
         s = URLSafeTimedSerializer("password1")
         token=s.dumps(mail, salt="emailconfirm")
 
-        #link="http://127.0.0.1:5000/confirm/"+token
-        link="https://smartmates.herokuapp.com/confirm/"+token
+        link="http://127.0.0.1:5000/confirm/"+token
+        #link="https://smartmates.herokuapp.com/confirm/"+token
 
         subject="Confirm your account on SmartMates"
 
         text = """
 
-Hello!
+Hey {}!
 Thanks for signing up!
 Click the link below to confirm your email adress and start using your account!
 
 
 {}
 
-If you didn't ask for an account don't worry, someone probably mispelt their email address.
+If you didn't ask for an account don't worry, someone probably misspelt their email address.
 
 
 Kind Regards,
@@ -55,7 +55,7 @@ Kind Regards,
 Team SmartMates
 
 
-         """.format(link)
+         """.format(username,link)
         message = 'Subject: {}\n\n{}'.format(subject, text)
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
