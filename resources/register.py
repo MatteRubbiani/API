@@ -2,6 +2,7 @@ from flask_restful import Resource, request
 import datetime
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
+import hashlib, uuid
 
 
 from db import db
@@ -23,7 +24,9 @@ class Register(Resource):
 
         now = datetime.datetime.now()
 
-        user=UserModel(None, mail, username, password, None, None, now, False, False, False)
+        hashed_password = hashlib.sha512(password+password).hexdigest()
+
+        user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
 
         user.save_to_db()
 
@@ -62,7 +65,3 @@ Team SmartMates
         server.sendmail("smartmates2018gmail.com", mail, message)
 
         return "user created, to be confirmed", 200
-
-
-
-    
