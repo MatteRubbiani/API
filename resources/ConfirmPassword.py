@@ -12,7 +12,8 @@ class ConfirmPassword(Resource):
         link=request.args.get('link')
         psw1=request.args.get('password')
         psw2=request.args.get('password1')
-        epsw=hashed_password = hashlib.sha512(epsw).hexdigest()
+        return token=link[47:]
+        hashed_password = hashlib.sha512(epsw).hexdigest()
         if psw1==pws2:
             token=link[47:]
             s = URLSafeTimedSerializer("password1")
