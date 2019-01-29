@@ -19,6 +19,7 @@ from resources.createorario import CreateOrario
 from resources.daytimetable import OrarioGiorno
 from resources.put import Put
 from resources.confirm_mail import ConfirmMail
+from resources.changepsw import ChangePassword
 
 
 app= Flask(__name__)
@@ -54,6 +55,7 @@ api.add_resource(CreateSubject, "/subject/create")
 api.add_resource(CreateOrario, "/timetable/create")
 api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
+api.add_resource(ChangePassword, "/ChangePassword")
 
 
 if __name__=="__main__":
