@@ -4,7 +4,8 @@ import hashlib, uuid
 
 def authenticate(username, password):
     user = UserModel.find_by_mail(username)
-    if user and user.password==hashlib.sha512(password).hexdigest() :#and user.confirmed==True:
+    epsw=password.encode('utf-8')
+    if user and user.password==hashlib.sha512(epsw).hexdigest() :#and user.confirmed==True:
         return user
 
 def identity(payload):
