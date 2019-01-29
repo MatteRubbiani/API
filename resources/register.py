@@ -18,8 +18,8 @@ class Register(Resource):
         username=request.args.get('username')
         password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
-        if user:
-            return "mail already taken", 400
+        #if user:
+            #return "mail already taken", 400
         now = datetime.datetime.now()
         hashed_password = hashlib.sha512(password+password).hexdigest()
         user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
