@@ -16,6 +16,5 @@ class ConfirmMail (Resource):
                 user.save_to_db()
                 return "user confirmed"
             return "user already confirmed"
-
         except:
             return "your token is expired"

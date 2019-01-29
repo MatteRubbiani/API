@@ -14,28 +14,26 @@ class JoinClass(Resource):
 
     @jwt_required()
     def post(self):
-        data=request.get_json()
-        mail=data[0]
-        tag=data[1]
+        mail=request.args.get('mail')
+        tag=request.args.get('tag')
         user=UserModel.find_by_mail(mail)
         if user:
             classe=find_by_tag(tag)
             if classe:
                 mate= find_friend_by_username(classe.id, user.username)
                 if mate:
-                    return "change name"
+                    return {"message":"change name"}, 500
 
                 user.classe_id=classe.id
                 user.save_to_db()
-                return "user added to class succesfully", 200
+                return {"message":"user added to class succesfully"}, 200
 
-            return "class does not exist" , 400
-        return "user does not exist", 400
+            return {"message":"class does not exist"} , 500
+        return {"message":"user does not exist"}, 500
 
     @jwt_required()
     def delete (self):
-        data=request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -59,7 +57,7 @@ class JoinClass(Resource):
                                     user.classe_id=None
                                     user.admin=False
                                     user.save_to_db()
-                                    return "user was removed, was admin, there were other admins"
+                                    return "user was removed, was admin, there were other admins", 200
                         for i in  amici:
                             friend=UserModel.find_by_id(i)
                             if friend.id!=user.id:
@@ -68,7 +66,7 @@ class JoinClass(Resource):
                                 user.classe_id=None
                                 user.admin=False
                                 user.save_to_db()
-                                return "user was admin, there were no other admin, one was created, user correctly removed from class "
+                                return "user was admin, there were no other admin, one was created, user correctly removed from class ", 200
                     classe=find_by_id(user.classe_id)
                     delete_subjects_by_class_id(user.classe_id)
                     delete_timetable_by_classe_id(user.classe_id)
@@ -76,9 +74,9 @@ class JoinClass(Resource):
                     user.classe_id=None
                     user.admin=False
                     user.save_to_db()
-                    return "user had no classmates, class was deleted"
+                    return "user had no classmates, class was deleted", 200
                 user.classe_id=None
                 user.save_to_db()
-                return "user was not admin, user removed correctly"
-            return "user not in a class"
-        return "user does not exist"
+                return "user was not admin, user removed correctly", 200
+            return {"message":"user not in a class"}, 500
+        return {"message":"user does not exist"}, 500

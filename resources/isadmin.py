@@ -6,9 +6,8 @@ from flask_jwt import jwt_required
 class IsAdmin (Resource):
     @jwt_required
     def get (self):
-        data =request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
-            return user.admin
-        return "user does not exist"
+            return {"message":user.admin}, 200
+        return {"message":"user does not exist"}, 500

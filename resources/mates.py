@@ -6,13 +6,12 @@ from flask_jwt import jwt_required
 class Mates (Resource):
     @jwt_required
     def get (self):
-        data=request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
             classe=user.classe_id
             if classe:
                 users=class_users(classe)
-                return  users
-            return "user not in a class"
-        return "user does not exist"
+                return {"mates":users}, 200
+            return "user not in a class", 500
+        return "user does not exist", 500

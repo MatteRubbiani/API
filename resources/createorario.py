@@ -11,11 +11,10 @@ class CreateOrario(Resource):
 
     @jwt_required()
     def post(self):
-        data=request.get_json()
-        mail=data[0]
-        giorno=data[1]
-        ora=data[2]
-        materia=data[3]
+        mail=request.args.get('mail')
+        giorno=request.args.get('day')
+        ora=request.args.get('hour')
+        materia=request.args.get('subject')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
@@ -25,25 +24,20 @@ class CreateOrario(Resource):
                         if materia=="":
                             existing.materia=""
                             existing.save_to_db()
-                            return "slot subject set to empty"
+                            return {"message":"slot subject set to empty"}, 200
                         if materia_id:
                             existing.materia_id=materia_id.id
                             existing.save_to_db()
-                            return "slot updated"
-
-
-                        return "subject does not exist"
-
+                            return {"message":"slot updated"},200
+                        return {"message":"subject does not exist"}, 500
                     if materia=="":
                         nuovo=TimetableModel(None,user.classe_id, giorno, ora, "")
                         nuovo.save_to_db()
-                        return "empty slot created"
-
-
+                        return {"message":"empty slot created"}, 200
                     if materia_id:
                         nuovo=TimetableModel(None,user.classe_id, giorno, ora, materia_id.id)
                         nuovo.save_to_db()
-                        return "stot created successfully"
-                    return "subject does not exist"
-            return "user is not in a class or is not an admin"
-        return "user does not exist"
+                        return {"mesaage":"stot created successfully"}, 200
+                    return {"message":"subject does not exist"},500
+            return {"message":"user is not in a class or is not an admin"},500
+        return {"message":"user does not exist"},500

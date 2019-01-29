@@ -8,9 +8,8 @@ class MakeAdmin (Resource):
 
     @jwt_required
     def post (self):
-        data = request.get_json()
-        mail=data[0]
-        friendusername=data[1]
+        mail=request.args.get('mail')
+        friendusername=request.args.get('friendusername')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -19,8 +18,8 @@ class MakeAdmin (Resource):
                     if friend:
                         friend.admin=True
                         friend.save_to_db()
-                        return "user made admin"
-                    return "mate does not exist"
-                return "user is not admin"
-            return "user is not in a class"
-        return "user does not exist"
+                        return {"message":"user made admin"}, 200
+                    return "mate does not exist", 500
+                return "user is not admin", 500
+            return "user is not in a class", 500
+        return "user does not exist", 500

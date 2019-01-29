@@ -10,14 +10,12 @@ class CreateClass(Resource):
 
     @jwt_required()
     def post(self):
-        data=request.get_json()
-        mail=data[0]
-        classe=data[1]
+        mail=request.args.get('mail')
+        classe=request.args.get('class')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 return "You are already in a class"
-
             tag=randomtag()
             class_to_add=ClassModel(None, tag, None, classe)
             class_to_add.save_to_db()
@@ -25,5 +23,5 @@ class CreateClass(Resource):
             user.admin=True
             user.classe_id=class_added.id
             user.save_to_db()
-            return tag
-        return "user does not exist",400
+            return {"tag":tag}
+        return {"message":"user does not exist"},400

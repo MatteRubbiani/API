@@ -11,26 +11,21 @@ class OrarioGiorno(Resource):
 
     @jwt_required()
     def get(self):
-        data=request.get_json()
-        mail=data[0]
-        giorno=data[1]
+        mail=request.args.get('mail')
+        giorno=request.args.get('day')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 materie_id=find_by_giorno_id(user.classe_id, giorno)
-
                 if materie_id:
                     elenco=[]
                     for i in materie_id:
                         materia=SubjectModel.find_by_id(i)
-                        #return materie_id
                         if i=="":
                             elenco.append("")
                         else:
                             elenco.append(materia.materia)
-
-
-                    return elenco
-                return "user has no subjects today"
-            return "user has no class"
-        return "user does not exist"
+                    return {"elenco":elenco},200
+                return {"elenco":""},200
+            return {"message":"user has no class"}, 500
+        return {"message":"user does not exist"},500

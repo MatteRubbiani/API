@@ -13,10 +13,9 @@ class Put (Resource):
 
     @jwt_required
     def post (self):
-        data=request.get_json()
-        mail=data[0]
-        giorno=data[1]
-        ora1=data[2]
+        mail=request.args.get('mail')
+        giorno=request.args.get('day')
+        ora1=request.args.get('hour')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -29,21 +28,20 @@ class Put (Resource):
                     if riga:
                         riga.data=data
                         riga.save_to_db()
-                        return "subject put in bag"
+                        return {"message":"subject put in bag"}, 200
                     newriga=FriendModel(None, user.id, orario.id, data)
                     newriga.save_to_db()
-                    return "slot created, subject put in bag"
-                return "slot hour does not exist"
-            return "user has no class"
-        return "user does not exist"
+                    return {"message":"subject put in bag"}, 200
+                return "slot hour does not exist", 500
+            return "user has no class", 500
+        return "user does not exist", 500
 
 
     @jwt_required
     def delete (self):
-        data=request.get_json()
-        mail=data[0]
-        giorno=data[1]
-        ora1=data[2]
+        mail=request.args.get('mail')
+        giorno=request.args.get('day')
+        ora1=request.args.get('hour')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -56,17 +54,16 @@ class Put (Resource):
                     if riga:
                         riga.data=None
                         riga.save_to_db()
-                        return "removed from in bag"
-                    return "subject was removed from bag"
-                return "slot hour does not exist"
-            return "user has no class"
-        return "user does not exist"
+                        return {"message":"removed from bag"}, 200
+                    return {"message":"subject was not in bag"}, 200
+                return {"message":"slot hour does not exist"}, 500
+            return "user has no class",500
+        return "user does not exist", 500
 
     @jwt_required
     def get (self):
-        data=request.get_json()
-        mail=data[0]
-        giorno=data[1]
+        mail=request.args.get('mail')
+        giorno=request.args.get('day')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -87,7 +84,7 @@ class Put (Resource):
                     for i in messe:
                         ore=TimetableModel.find_by_id(i)
                         final.append(ore.ora)
-                    return final
-                return "user has no mate"
-            return "user has no class"
-        return "user does not exist"
+                    return {"messicompagno": final}, 200
+                return "user has no mate", 500
+            return "user has no class", 500
+        return "user does not exist", 500

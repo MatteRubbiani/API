@@ -10,32 +10,31 @@ class CreateSubject(Resource):
 
     @jwt_required()
     def post(self):
-        data=request.get_json()
-        mail=data[0]
-        materia=data[1]
+        mail=request.args.get('mail')
+        materia=request.args.get('subject')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
                     if find_subject_id(user.classe_id, materia):
-                        return "subject already exists"
+                        return {"message":"subject already exists"}, 500
                     classe=find_by_id(user.classe_id)
                     materia_to_add=SubjectModel(None, classe.id, materia)
                     materia_to_add.save_to_db()
-                    return "suject created successfully"
-            return "user is not admin or is not in a class"
-        return "user does not exist"
+                    return {"message":"suject created successfully"}, 200
+            return {"message":"user is not admin or is not in a class"}, 500
+        return {"message":"user does not exist"}, 500
 
+    @jwt_required()
     def delete (self):
-        data=request.get_json()
-        mail=data[0]
-        materia=data[1]
-        user =UserModel.find_by_mail(mail)
+        mail=request.args.get('mail')
+        materia=request.args.get('subject')
+        user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
                 test=find_subject_id(user.classe_id, materia)
                 if test:
                     test.delete_from_db()
-                    return "subject deleted successfully"
-                return "subject does not exist"
-            return "user is not admin or is not in a class"
-        return "user does not exist"
+                    return {"message":"subject deleted successfully"},200
+                return {"message":"subject does not exist"}, 500
+            return {"message":"user is not admin or is not in a class"},500
+        return {"message":"user does not exist"}, 500

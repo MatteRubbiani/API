@@ -14,33 +14,25 @@ class Register(Resource):
 
 
     def post(self):
-        data=request.get_json()
-        mail=data[0]
-        username=data[1]
-        password=data[2]
+        mail=request.args.get('mail')
+        username=request.args.get('username')
+        password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
         if user:
             return "mail already taken", 400
-
         now = datetime.datetime.now()
-
         hashed_password = hashlib.sha512(password+password).hexdigest()
-
         user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
-
         user.save_to_db()
-
         s = URLSafeTimedSerializer("password1")
         token=s.dumps(mail, salt="emailconfirm")
-
-        link="http://127.0.0.1:5000/confirm/"+token
-        #link="https://smartmates.herokuapp.com/confirm/"+token
-
+        #link="http://127.0.0.1:5000/confirm/"+token
+        link="https://smartmates.herokuapp.com/confirm/"+token
         subject="Confirm your account on SmartMates"
 
         text = """
 
-Hey {}!
+Hi {}!
 Thanks for signing up!
 Click the link below to confirm your email adress and start using your account!
 
@@ -62,6 +54,6 @@ Team SmartMates
         server.starttls()
 
         server.login("smartmates2018@gmail.com", "smartmates1")
-        server.sendmail("smartmates2018gmail.com", mail, message)
+        #server.sendmail("smartmates2018gmail.com", mail, message)
 
         return "user created, to be confirmed", 200

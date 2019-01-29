@@ -6,12 +6,12 @@ from flask_jwt import jwt_required
 class GotMate (Resource):
     @jwt_required
     def get (self):
-        data =request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.friendship==True:
-                    return True
+                    return {"frienship":True},200
             if user.friend_id:
-                return "requested"
-        return False
+                return {"message":"friendship requested"}, 200
+            return{"message": False}, 200
+        return {"message": "user does not exist"}, 500
