@@ -6,7 +6,7 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mail=db.Column(db.String(80))
     username=db.Column(db.String(80))
-    password=db.Column(db.String(80))
+    password=db.Column(db.String(140))
     friend_id=db.Column(db.Integer)
     classe_id=db.Column(db.Integer)
     creation_date=db.Column(db.String(30))
