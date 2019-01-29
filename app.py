@@ -56,8 +56,8 @@ api.add_resource(CreateSubject, "/subject/create")
 api.add_resource(CreateOrario, "/timetable/create")
 api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
-api.add_resource(ChangePassword, "/change/password")
-api.add_resource(ConfirmPassword, "/confirm/password")
+api.add_resource(ChangePassword, "/changePassword")
+api.add_resource(ConfirmPassword, "/confirmPassword")
 
 if __name__=="__main__":
     from db import db
