@@ -4,7 +4,7 @@ from models.classes import find_by_id
 from flask_jwt import jwt_required
 
 class Mates (Resource):
-    @jwt_required
+    @jwt_required()
     def get (self):
         mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)

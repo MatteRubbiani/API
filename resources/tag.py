@@ -6,7 +6,7 @@ from models.randomtag import randomtag
 
 
 class Tag (Resource):
-    @jwt_required
+    @jwt_required()
     def get (self):
         data=request.get_json()
         mail=data[0]

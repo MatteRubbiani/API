@@ -10,9 +10,6 @@ from db import db
 from models.users import UserModel
 
 class Register(Resource):
-
-
-
     def post(self):
         mail=request.args.get('mail')
         username=request.args.get('username')

@@ -11,7 +11,7 @@ from models.friends import FriendModel
 
 class Put (Resource):
 
-    @jwt_required
+    @jwt_required()
     def post (self):
         mail=request.args.get('mail')
         giorno=request.args.get('day')
@@ -37,7 +37,7 @@ class Put (Resource):
         return "user does not exist", 500
 
 
-    @jwt_required
+    @jwt_required()
     def delete (self):
         mail=request.args.get('mail')
         giorno=request.args.get('day')
@@ -60,7 +60,7 @@ class Put (Resource):
             return "user has no class",500
         return "user does not exist", 500
 
-    @jwt_required
+    @jwt_required()
     def get (self):
         mail=request.args.get('mail')
         giorno=request.args.get('day')

@@ -6,7 +6,7 @@ from flask_jwt import jwt_required
 
 class MakeAdmin (Resource):
 
-    @jwt_required
+    @jwt_required()
     def post (self):
         mail=request.args.get('mail')
         friendusername=request.args.get('friendusername')
