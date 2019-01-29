@@ -20,6 +20,7 @@ from resources.daytimetable import OrarioGiorno
 from resources.put import Put
 from resources.confirm_mail import ConfirmMail
 from resources.changepsw import ChangePassword
+from resources.ConfirmPassword import ConfirmPassword
 
 
 app= Flask(__name__)
@@ -56,7 +57,7 @@ api.add_resource(CreateOrario, "/timetable/create")
 api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
 api.add_resource(ChangePassword, "/change/password")
-#api.add_resource(ConfirmPassword, "/confirm/password")
+api.add_resource(ConfirmPassword, "/confirm/password")
 
 if __name__=="__main__":
     from db import db
