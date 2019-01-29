@@ -8,7 +8,7 @@ import hashlib, uuid
 class ConfirmPassword(Resource):
 
 
-    def get(self):
+    def post(self):
         link=request.args.get('link')
         psw1=request.args.get('password')
         psw2=request.args.get('password1')
