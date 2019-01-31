@@ -15,8 +15,8 @@ class Register(Resource):
         username=request.args.get('username')
         password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
-        #if user:
-            #return "mail already taken", 400
+        if user:
+            return "mail already taken", 400
         now = datetime.datetime.now()
         epsw=password.encode('utf-8')
         hashed_password = hashlib.sha512(epsw).hexdigest()
@@ -52,6 +52,6 @@ Team SmartMates
         server.starttls()
 
         server.login("smartmates2018@gmail.com", "smartmates1")
-        #server.sendmail("smartmates2018gmail.com", mail, message)
+        server.sendmail("smartmates2018gmail.com", mail, message)
 
         return "user created, to be confirmed", 200

@@ -6,10 +6,9 @@ from models.randomtag import randomtag
 
 
 class Tag (Resource):
-    @jwt_required()
+    #@jwt_required()
     def get (self):
-        data=request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
             classe=find_by_id(user.classe_id)
@@ -19,14 +18,11 @@ class Tag (Resource):
         return "user does not exist"
 
     def post (self):
-        data= request.get_json()
-        mail=data[0]
+        mail=request.args.get('mail')
         user=UserModel.find_by_mail(mail)
         if user:
-
             if user.classe_id:
                 classe=find_by_id(user.classe_id)
-
                 if user.admin==True:
                     classe.tag=randomtag()
                     classe.save_to_db()
