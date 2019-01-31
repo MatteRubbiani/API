@@ -9,7 +9,7 @@ from models.subjects import SubjectModel, find_subject_id
 
 class OrarioGiorno(Resource):
 
-    @jwt_required()
+    
     def get(self):
         mail=request.args.get('mail')
         giorno=request.args.get('day')

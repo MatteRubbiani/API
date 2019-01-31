@@ -5,7 +5,7 @@ class ClassModel(db.Model):
     __tablename__="classi"
 
     id = db.Column(db.Integer, primary_key=True)
-    tag=db.Column(db.String(10))
+    tag=db.Column(db.String(30))
     orario_id=db.Column(db.String(30))
     nome=db.Column(db.String(30))
 
