@@ -11,12 +11,14 @@ from models.users import UserModel
 
 class Register(Resource):
     def post(self):
-        mail=request.args.get('mail')
-        username=request.args.get('username')
-        password=request.args.get('password')
+        data=request.get_json()
+        mail=data["mail"]
+        password=data["password"]
+        username=data["username"]
         user=UserModel.find_by_mail(mail)
         if user:
-            return "mail already taken", 400
+            if user.confirmed==True:
+                return "mail already taken", 400
         now = datetime.datetime.now()
         epsw=password.encode('utf-8')
         hashed_password = hashlib.sha512(epsw).hexdigest()
