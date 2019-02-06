@@ -13,6 +13,7 @@ class OrarioGiorno(Resource):
     def get(self):
         mail=request.args.get('mail')
         giorno=request.args.get('day')
+        return[{"subject":"geometria","you":True, "yourMate":True}, {"subject":"italiano","you":False, "yourMate":True},{"subject":"ciao","you":False, "yourMate":True},{"subject":"banana","you":False, "yourMate":False}]
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
@@ -25,7 +26,7 @@ class OrarioGiorno(Resource):
                             elenco.append("")
                         else:
                             elenco.append(materia.materia)
-                    return[{"subject":"geometria","you":True, "yourMate":True}, {"subject":"italiano","you":False, "yourMate":True},{"subject":"ciao","you":False, "yourMate":True},{"subject":"banana","you":False, "yourMate":False}]
+                return[{"subject":"geometria","you":True, "yourMate":True}, {"subject":"italiano","you":False, "yourMate":True},{"subject":"ciao","you":False, "yourMate":True},{"subject":"banana","you":False, "yourMate":False}]
                     return {"elenco":elenco},200
                 return {"elenco":""},200
             return {"message":"user has no class"}, 500
