@@ -11,10 +11,9 @@ from models.users import UserModel
 
 class Register(Resource):
     def post(self):
-        data=request.get_json()
-        mail=data["mail"]
-        password=data["password"]
-        username=data["username"]
+        mail=request.args.get('mail')
+        username=request.args.get('username')
+        password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
         if user:
             if user.confirmed==True:
