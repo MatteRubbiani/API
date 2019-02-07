@@ -8,7 +8,7 @@ from models.users import UserModel
 
 class CreateClass(Resource):
 
-    @jwt_required()
+
     def post(self):
         mail=request.args.get('mail')
         classe=request.args.get('class')

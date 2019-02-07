@@ -21,10 +21,11 @@ from resources.put import Put
 from resources.confirm_mail import ConfirmMail
 from resources.changepsw import ChangePassword
 from resources.ConfirmPassword import ConfirmPassword
+from resources.finalput import FinalPut
 
 
 app= Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("DATABASE_URL")#"sqlite:///data.db")
+app.config["SQLALCHEMY_DATABASE_URI"]=os.environ.get("DATABASE_URL","sqlite:///data.db")
 app.config["SQLALCHEMY_TRAK_MODIFICATIONS"]=False
 app.secret_key="Matteo"
 api=Api(app)
@@ -58,6 +59,7 @@ api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
 api.add_resource(ChangePassword, "/changePassword")
 api.add_resource(ConfirmPassword, "/confirmPassword")
+api.add_resource(FinalPut, "/final/put")
 
 if __name__=="__main__":
     from db import db

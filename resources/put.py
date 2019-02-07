@@ -21,7 +21,7 @@ class Put (Resource):
             if user.classe_id:
                 time=datetime.now().date()
                 ora=(datetime.now().time())
-                data=str([time.year, time.month, time.day, ora.hour])
+                data=str([time.year, time.month, time.day])
                 orario=find_by_ora(user.classe_id, giorno, ora1)
                 if orario:
                     riga=FriendModel.find_by_orario_id(user.id, orario.id)
@@ -47,7 +47,7 @@ class Put (Resource):
             if user.classe_id:
                 time=datetime.now().date()
                 ora=(datetime.now().time())
-                data=str([time.year, time.month, time.day, ora.hour])
+                data=str([time.year, time.month, time.day])
                 orario=find_by_ora(user.classe_id, giorno, ora1)
                 if orario:
                     riga=FriendModel.find_by_orario_id(user.id, orario.id)
@@ -70,7 +70,8 @@ class Put (Resource):
                 if user.friendship==True:
                     time=datetime.now().date()
                     ora=(datetime.now().time())
-                    data=str([time.year, time.month, time.day, ora.hour])
+                    data=str([time.year, time.month, time.day])
+                    data1=str([time.year, time.month, time.day].timedelta(days=-1))
 
                     orari_id=find_id_by_giorno_id(user.classe_id, giorno)
                     messe=[]
@@ -78,7 +79,7 @@ class Put (Resource):
                     for i in orari_id:
                         riga=FriendModel.find_by_orario_id(user.friend_id, i)
                         if riga:
-                            if riga.data==data:
+                            if riga.data==data or riga.data==data1:
                                 messe.append(i)
                     final=[]
                     for i in messe:
