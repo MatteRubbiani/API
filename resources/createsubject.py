@@ -32,8 +32,12 @@ class CreateSubject(Resource):
         if user:
             if user.admin==True:
                 test=find_subject_id(user.classe_id, materia)
+
                 if test:
-                    test.delete_from_db()
+
+                    test.materia=""
+                    test.save_to_db()
+
                     return {"message":"subject deleted successfully"},200
                 return {"message":"subject does not exist"}, 500
             return {"message":"user is not admin or is not in a class"},500
