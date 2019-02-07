@@ -1,6 +1,7 @@
 from db import db
 from flask_restful import Resource, request
 from flask_jwt import jwt_required
+from datetime import datetime
 
 from models.classes import ClassModel, find_by_tag
 from models.users import UserModel
