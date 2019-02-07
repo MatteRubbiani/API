@@ -8,7 +8,7 @@ from models.subjects import SubjectModel, find_subject_id
 
 class CreateSubject(Resource):
 
-    @jwt_required()
+    #@jwt_required()
     def post(self):
         mail=request.args.get('mail')
         materia=request.args.get('subject')
@@ -24,7 +24,7 @@ class CreateSubject(Resource):
             return {"message":"user is not admin or is not in a class"}, 500
         return {"message":"user does not exist"}, 500
 
-    @jwt_required()
+    #@jwt_required()
     def delete (self):
         mail=request.args.get('mail')
         materia=request.args.get('subject')

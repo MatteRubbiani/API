@@ -21,7 +21,7 @@ class FinalPut(Resource):
                     time=datetime.now().date()
                     ora=(datetime.now().time())
                     data=str([time.year, time.month, time.day])
-                    data1=str([time.year, time.month, time.day].timedelta(days=-1))
+                    data1=str([time.year, time.month, (time.day-1)])
 
                     orari_id=find_id_by_giorno_id(user.classe_id, giorno)
                     mate=[]
@@ -43,8 +43,9 @@ class FinalPut(Resource):
                                 you.append(False)
 
                     materie_id=find_by_giorno_id(user.classe_id, giorno)
+                    elenco=[]
                     if materie_id:
-                        elenco=[]
+
                         for i in materie_id:
                             materia=SubjectModel.find_by_id(i)
                             if i=="":
@@ -54,9 +55,17 @@ class FinalPut(Resource):
                     final=[]
 
                     for i in range(len(elenco)):
+                        try:
+                            a=you[i]
+                        except:
+                            a=False
+                        try:
+                            b=mate[i]
+                        except:
+                            b=False
                         final.append({"subject":elenco[i],
-                                      "you":you[i],
-                                      "mate":mate[i]})
+                                      "you":a,
+                                      "mate":b})
 
 
                     return final
