@@ -53,6 +53,6 @@ Team SmartMates
         server.starttls()
 
         server.login("smartmates2018@gmail.com", "smartmates1")
-        server.sendmail("smartmates2018gmail.com", mail, message)
+        #server.sendmail("smartmates2018gmail.com", mail, message)
 
         return "user created, to be confirmed", 200
