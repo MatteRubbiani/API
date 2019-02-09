@@ -45,13 +45,12 @@ class FinalPut(Resource):
                     materie_id=find_by_giorno_id(user.classe_id, giorno)
                     elenco=[]
                     if materie_id:
-
                         for i in materie_id:
-                            materia=SubjectModel.find_by_id(i)
-                            if i=="":
-                                elenco.append("")
-                            else:
+                            if i:
+                                materia=SubjectModel.find_by_id(i)
                                 elenco.append(materia.materia)
+                            else:
+                                elenco.append(None)
                     final=[]
 
                     for i in range(len(elenco)):
