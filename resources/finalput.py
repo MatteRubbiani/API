@@ -17,18 +17,18 @@ class FinalPut(Resource):
         user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
-                if user.friendship==True:
-                    time=datetime.now().date()
-                    ora=(datetime.now().time())
-                    data=str([time.year, time.month, time.day])
-                    data1=str([time.year, time.month, (time.day-1)])
+                time=datetime.now().date()
+                ora=(datetime.now().time())
+                data=str([time.year, time.month, time.day])
+                data1=str([time.year, time.month, (time.day-1)])
 
-                    orari=TimetableModel.find_by_classe_id(user.classe_id, giorno)
+                orari=TimetableModel.find_by_classe_id(user.classe_id, giorno)
 
-                    if orari:
-                        final=[]
-                        orari1=sorted(orari, key=lambda x: x.ora)
-                        for i in orari1:
+                if orari:
+                    final=[]
+                    orari1=sorted(orari, key=lambda x: x.ora)
+                    for i in orari1:
+                        if user.friendship==True:
                             riga=FriendModel.find_by_orario_id(user.friend_id, i.id)
                             if riga:
                                 if riga.data==data or riga.data==data1:
@@ -37,29 +37,28 @@ class FinalPut(Resource):
                                     mate=False
                             else:
                                 mate=False
+                        else:
+                            mate=None
 
 
 
-                            riga=FriendModel.find_by_orario_id(user.id, i.id)
-                            if riga:
-                                if riga.data==data or riga.data==data1:
-                                    you=True
-                                else:
-                                    you=False
+                        riga=FriendModel.find_by_orario_id(user.id, i.id)
+                        if riga:
+                            if riga.data==data or riga.data==data1:
+                                you=True
                             else:
                                 you=False
-                            if i.materia_id:
-                                materia=SubjectModel.find_by_id(i.materia_id)
-                                final.append({"subject":materia.materia,
-                                              "you":you,
-                                              "mate":mate})
-                            else:
-                                materia=None
-                                final.append({"subject":materia,
-                                            "you":you,
-                                            "mate":mate})
+                        else:
+                            you=False
+                        if i.materia_id:
+                            materia=(SubjectModel.find_by_id(i.materia_id)).materia
 
-                    return final
-                return "user has no mate", 500
-            return "user has no class", 500
+                            materia=None
+
+                        final.append({"subject":materia,
+                                    "you":you,
+                                    "mate":mate})
+                        return final
+                return []
+            return {"message":"you are not in a class"}, 500
         return "user does not exist", 500
