@@ -34,7 +34,7 @@ class CreateSubject(Resource):
             if user.admin==True:
                 subject=find_subject_id(user.classe_id, materia)
                 if subject:
-                    slots=TimetableModel.find_by_materia_id()
+                    slots=TimetableModel.find_by_materia_id(subject.id)
                     for i in slots:
                         i.materia_id=None
                         i.save_to_db()
