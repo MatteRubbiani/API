@@ -58,7 +58,7 @@ class FinalPut(Resource):
                         final.append({"subject":materia,
                                     "you":you,
                                     "mate":mate})
-                        return final
+                    return final
                 return []
             return {"message":"you are not in a class"}, 500
         return "user does not exist", 500
