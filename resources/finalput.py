@@ -23,49 +23,33 @@ class FinalPut(Resource):
                     data=str([time.year, time.month, time.day])
                     data1=str([time.year, time.month, (time.day-1)])
 
-                    orari_id=find_id_by_giorno_id(user.classe_id, giorno)
-                    mate=[]
-                    for i in orari_id:
-                        riga=FriendModel.find_by_orario_id(user.friend_id, i)
-                        if riga:
-                            if riga.data==data or riga.data==data1:
-                                mate.append(True)
+                    orari=TimetableModel.find_by_classe_id(user.classe_id, giorno)
+
+                    if orari:
+                        final=[]
+                        orari1=sorted(orari, key=lambda x: x.ora)
+                        for i in orari1:
+                            riga=FriendModel.find_by_orario_id(user.friend_id, i)
+                            if riga:
+                                if riga.data==data or riga.data==data1:
+                                    mate=True
+                                else:
+                                    mate=False
+
+
+                            riga=FriendModel.find_by_orario_id(user.id, i)
+                            if riga:
+                                if riga.data==data or riga.data==data1:
+                                    you=True
+                                else:
+                                    you=False
+                            if i.materia:
+                                materia=SubjectModel.find_by_id(i.materia_id)
                             else:
-                                mate.append(False)
-
-                    you=[]
-                    for i in orari_id:
-                        riga=FriendModel.find_by_orario_id(user.id, i)
-                        if riga:
-                            if riga.data==data or riga.data==data1:
-                                you.append(True)
-                            else:
-                                you.append(False)
-
-                    materie_id=find_by_giorno_id(user.classe_id, giorno)
-                    elenco=[]
-                    if materie_id:
-                        for i in materie_id:
-                            if i:
-                                materia=SubjectModel.find_by_id(i)
-                                elenco.append(materia.materia)
-                            else:
-                                elenco.append(None)
-                    final=[]
-
-                    for i in range(len(elenco)):
-                        try:
-                            a=you[i]
-                        except:
-                            a=False
-                        try:
-                            b=mate[i]
-                        except:
-                            b=False
-                        final.append({"subject":elenco[i],
-                                      "you":a,
-                                      "mate":b})
-
+                                materia=None
+                            final.append({"subject":materia,
+                                          "you":you,
+                                          "mate":mate})
 
                     return final
                 return "user has no mate", 500
