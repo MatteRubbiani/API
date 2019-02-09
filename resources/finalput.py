@@ -52,7 +52,7 @@ class FinalPut(Resource):
                             you=False
                         if i.materia_id:
                             materia=(SubjectModel.find_by_id(i.materia_id)).materia
-
+                        else:
                             materia=None
 
                         final.append({"subject":materia,
