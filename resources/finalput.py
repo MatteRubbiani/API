@@ -29,27 +29,35 @@ class FinalPut(Resource):
                         final=[]
                         orari1=sorted(orari, key=lambda x: x.ora)
                         for i in orari1:
-                            riga=FriendModel.find_by_orario_id(user.friend_id, i)
+                            riga=FriendModel.find_by_orario_id(user.friend_id, i.id)
                             if riga:
                                 if riga.data==data or riga.data==data1:
                                     mate=True
                                 else:
                                     mate=False
+                            else:
+                                mate=False
 
 
-                            riga=FriendModel.find_by_orario_id(user.id, i)
+
+                            riga=FriendModel.find_by_orario_id(user.id, i.id)
                             if riga:
                                 if riga.data==data or riga.data==data1:
                                     you=True
                                 else:
                                     you=False
-                            if i.materia:
+                            else:
+                                you=False
+                            if i.materia_id:
                                 materia=SubjectModel.find_by_id(i.materia_id)
+                                final.append({"subject":materia.materia,
+                                              "you":you,
+                                              "mate":mate})
                             else:
                                 materia=None
-                            final.append({"subject":materia,
-                                          "you":you,
-                                          "mate":mate})
+                                final.append({"subject":materia,
+                                            "you":you,
+                                            "mate":mate})
 
                     return final
                 return "user has no mate", 500
