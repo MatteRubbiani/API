@@ -21,8 +21,8 @@ class CreateOrario(Resource):
                     existing=find_by_ora(user.classe_id, giorno, ora)
                     materia_id=find_subject_id(user.classe_id, materia)
                     if existing:
-                        if materia=="":
-                            existing.materia=""
+                        if materia==None:
+                            existing.materia=None
                             existing.save_to_db()
                             return {"message":"slot subject set to empty"}, 200
                         if materia_id:
@@ -30,8 +30,8 @@ class CreateOrario(Resource):
                             existing.save_to_db()
                             return {"message":"slot updated"},200
                         return {"message":"subject does not exist"}, 500
-                    if materia=="":
-                        nuovo=TimetableModel(None,user.classe_id, giorno, ora, "")
+                    if materia==None:
+                        nuovo=TimetableModel(None,user.classe_id, giorno, ora, None)
                         nuovo.save_to_db()
                         return {"message":"empty slot created"}, 200
                     if materia_id:

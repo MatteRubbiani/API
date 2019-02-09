@@ -26,6 +26,12 @@ class TimetableModel(db.Model):
         a=TimetableModel.query.filter_by(id=id).first()
         return a
 
+    @classmethod
+    def find_by_materia_id (cls, materia_id):
+        a=TimetableModel.query.filter_by(materia_id=materia_id)
+        return a
+
+
 
 
 

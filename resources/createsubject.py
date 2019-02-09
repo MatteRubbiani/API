@@ -5,6 +5,7 @@ from flask_jwt import jwt_required
 from models.classes import ClassModel, find_by_admin, find_by_id
 from models.users import UserModel, add_to_class
 from models.subjects import SubjectModel, find_subject_id
+from models.timetable import TimetableModel
 
 class CreateSubject(Resource):
 
@@ -31,13 +32,13 @@ class CreateSubject(Resource):
         user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
-                test=find_subject_id(user.classe_id, materia)
-
-                if test:
-
-                    test.materia=""
-                    test.save_to_db()
-
+                subject=find_subject_id(user.classe_id, materia)
+                if subject:
+                    slots=TimetableModel.find_by_materia_id()
+                    for i in slots:
+                        i.materia_id=None
+                        i.save_to_db()
+                    subject.delete_from_db()
                     return {"message":"subject deleted successfully"},200
                 return {"message":"subject does not exist"}, 500
             return {"message":"user is not admin or is not in a class"},500
