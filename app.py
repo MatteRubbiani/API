@@ -28,6 +28,7 @@ from resources.name import Name
 from resources.friendName import FriendName
 from resources.authenticate import UserLogin
 from resources.classname import ClassName
+from resources.admins import Admins
 
 
 app= Flask(__name__)
@@ -75,6 +76,8 @@ api.add_resource(Name, "/user/name")
 api.add_resource(FriendName, "/user/friend/name")
 api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
+api.add_resource(Admins, "/class/admin/names")
+
 
 if __name__=="__main__":
     from db import db
