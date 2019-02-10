@@ -62,7 +62,7 @@ api.add_resource(Friend, "/user/friend")
 api.add_resource(Tag, "/class/tag")
 api.add_resource(ConfirmMail, "/confirm/<string:token>")
 api.add_resource(MakeAdmin, "/class/admin")
-api.add_resource(Mates, "/class/mates")
+api.add_resource(Mates, "/class")
 api.add_resource(IsAdmin, "/user/isadmin")
 api.add_resource(GotMate, "/user/gotmate")
 api.add_resource(CreateSubject, "/subject/create")
@@ -77,6 +77,7 @@ api.add_resource(FriendName, "/user/friend/name")
 api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
 api.add_resource(Admins, "/class/admin/names")
+
 
 
 if __name__=="__main__":
