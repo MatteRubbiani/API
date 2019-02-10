@@ -65,13 +65,7 @@ def class_users (classe_id):
 
 def class_mates (classe_id):
     users= UserModel.query.filter_by(classe_id=classe_id)
-    list=[]
-    if users:
-        for i in  users:
-            list.append(i.id)
-        return list
-    return None
-
+    return users
 
 
 def find_friend_by_username(classe_id, friendname):
