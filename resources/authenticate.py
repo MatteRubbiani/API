@@ -7,8 +7,8 @@ class UserLogin(Resource):
         #mail=request.args.get('mail')
         #password=request.args.get('password')
         data=request.get_json()
-            mail=data["mail"]
-            password=data["password"]
+        mail=data["mail"]
+        password=data["password"]
 
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
