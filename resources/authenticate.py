@@ -4,8 +4,12 @@ from models.users import UserModel
 import hashlib, uuid
 class UserLogin(Resource):
     def post(self):
-        mail=request.args.get('mail')
-        password=request.args.get('password')
+        #mail=request.args.get('mail')
+        #password=request.args.get('password')
+        data=request.get_json()
+            mail=data["mail"]
+            password=data["password"]
+
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
         if user: #and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
