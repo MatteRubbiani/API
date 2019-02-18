@@ -28,7 +28,7 @@ class TokenRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
         current_user=get_jwt_identity()
-        a=get_raw_jwt()
-        return a["iat"]
+        #a=get_raw_jwt()
+        #return a["iat"]
         new_token=create_access_token(identity=current_user, fresh=False)
         return {"access_token":new_token}
