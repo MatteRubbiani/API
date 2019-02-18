@@ -11,11 +11,12 @@ from models.friends import FriendModel
 
 
 class FinalPut(Resource):
+    @jwt_required
     def get (self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
-    
+
         if user:
             if user.classe_id:
                 time=datetime.now().date()
