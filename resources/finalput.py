@@ -1,6 +1,6 @@
 from db import db
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import datetime
 
 from models.classes import ClassModel, find_by_tag
@@ -12,18 +12,17 @@ from models.friends import FriendModel
 
 class FinalPut(Resource):
     def get (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
-        user=UserModel.find_by_mail(mail)
+    
         if user:
             if user.classe_id:
                 time=datetime.now().date()
                 ora=(datetime.now().time())
                 data=str([time.year, time.month, time.day])
                 data1=str([time.year, time.month, (time.day-1)])
-
                 orari=TimetableModel.find_by_classe_id(user.classe_id, giorno)
-
                 if orari:
                     final=[]
                     orari1=sorted(orari, key=lambda x: x.ora)
