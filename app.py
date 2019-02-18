@@ -26,9 +26,11 @@ from resources.ConfirmPassword import ConfirmPassword
 from resources.finalput import FinalPut
 from resources.name import Name
 from resources.friendName import FriendName
-from resources.authenticate import UserLogin
+from resources.authenticate import UserLogin, TokenRefresh
 from resources.classname import ClassName
 from resources.admins import Admins
+
+from models.users import UserModel
 
 
 app= Flask(__name__)
@@ -40,9 +42,10 @@ api=Api(app)
 
 
 jwt = JWTManager (app)
-@jwt.user_claims_loader
-def add_claims(identity):
-    return{"user_id":identity}
+#@jwt.user_claims_loader
+#def add_claims(identity):
+#  user=UserModel.find_by_id(identity)
+    #return{"date":user.username}
 
 #app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 #app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
@@ -77,6 +80,7 @@ api.add_resource(FriendName, "/user/friend/name")
 api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
 api.add_resource(Admins, "/class/admin/names")
+api.add_resource(TokenRefresh, "/refresh")
 
 
 
