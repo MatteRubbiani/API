@@ -8,8 +8,9 @@ from models.users import UserModel
 import hashlib, uuid
 class UserLogin(Resource):
     def post(self):
-        mail=request.args.get('mail')
-        password=request.args.get('password')
+        data=request.get_json()
+        mail=data["mail"]
+        password=data["password"]
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
         if user: #and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
@@ -25,6 +26,6 @@ class TokenRefresh(Resource):
     def post(self):
         current_user=get_jwt_identity()
         #a=get_raw_jwt()
-        #return a["iat"]
+        #return a["iat"] questo E' PER PENDERE DATA DI CRAZIONE REFRESH TOKEN 
         new_token=create_access_token(identity=current_user, fresh=False)
         return {"access_token":new_token}

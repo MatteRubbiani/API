@@ -1,6 +1,6 @@
 from db import db
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import datetime
 
 from models.classes import ClassModel, find_by_tag
@@ -11,12 +11,12 @@ from models.friends import FriendModel
 
 class Put (Resource):
 
-    #@jwt_required()
+    @jwt_required
     def post (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
         ora1=request.args.get('hour')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 time=datetime.now().date()
@@ -37,12 +37,12 @@ class Put (Resource):
         return "user does not exist", 500
 
 
-    #@jwt_required()
+    @jwt_required
     def delete (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
         ora1=request.args.get('hour')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 time=datetime.now().date()
@@ -60,32 +60,55 @@ class Put (Resource):
             return "user has no class",500
         return "user does not exist", 500
 
-    @jwt_required()
+    @jwt_required
     def get (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
-                if user.friendship==True:
-                    time=datetime.now().date()
-                    ora=(datetime.now().time())
-                    data=str([time.year, time.month, time.day])
-                    data1=str([time.year, time.month, time.day].timedelta(days=-1))
+                time=datetime.now().date()
+                ora=(datetime.now().time())
+                data=str([time.year, time.month, time.day])
+                data1=str([time.year, time.month, (time.day-1)])
 
-                    orari_id=find_id_by_giorno_id(user.classe_id, giorno)
-                    messe=[]
+                orari=TimetableModel.find_by_classe_id(user.classe_id, giorno)
 
-                    for i in orari_id:
-                        riga=FriendModel.find_by_orario_id(user.friend_id, i)
+                if orari:
+                    final=[]
+                    orari1=sorted(orari, key=lambda x: x.ora)
+                    for i in orari1:
+                        if user.friendship==True:
+                            riga=FriendModel.find_by_orario_id(user.friend_id, i.id)
+                            if riga:
+                                if riga.data==data or riga.data==data1:
+                                    mate=True
+                                else:
+                                    mate=False
+                            else:
+                                mate=False
+                        else:
+                            mate=None
+
+
+
+                        riga=FriendModel.find_by_orario_id(user.id, i.id)
                         if riga:
                             if riga.data==data or riga.data==data1:
-                                messe.append(i)
-                    final=[]
-                    for i in messe:
-                        ore=TimetableModel.find_by_id(i)
-                        final.append(ore.ora)
-                    return {"messicompagno": final}, 200
-                return "user has no mate", 500
-            return "user has no class", 500
+                                you=True
+                            else:
+                                you=False
+                        else:
+                            you=False
+                        if i.materia_id:
+                            materia=(SubjectModel.find_by_id(i.materia_id)).materia
+                        else:
+                            materia=None
+
+                        final.append({"subject":materia,
+                                    "you":you,
+                                    "mate":mate})
+                    return final
+                return []
+            return {"message":"you are not in a class"}, 500
         return "user does not exist", 500

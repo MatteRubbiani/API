@@ -1,16 +1,16 @@
 from flask_restful import Resource, request
 from models.users import UserModel, class_users, find_friend_by_username
 from models.classes import find_by_id
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 class MakeAdmin (Resource):
 
-    @jwt_required()
+    @jwt_required
     def post (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         friendusername=request.args.get('friendusername')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 if user.admin==True:

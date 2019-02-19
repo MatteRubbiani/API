@@ -1,16 +1,16 @@
 from models.users import UserModel, class_users, find_friend_by_username
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 
 class Friend(Resource):
 
-    @jwt_required()
+    @jwt_required
     def post (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         amico=request.args.get('friend')
-        user=UserModel.find_by_mail(mail)
         if user:
             mate= find_friend_by_username(user.classe_id, amico)
             if mate:
@@ -31,10 +31,10 @@ class Friend(Resource):
         return {"message":"user does not exist"}, 500
 
 
-    @jwt_required()
+    @jwt_required
     def delete(self):
-        mail=request.args.get('mail')
-        user=UserModel.find_by_mail(mail)
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         if user:
             mate= UserModel.find_by_id(user.friend_id)
             if mate:

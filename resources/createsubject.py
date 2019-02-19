@@ -1,19 +1,21 @@
 from db import db
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models.classes import ClassModel, find_by_admin, find_by_id
-from models.users import UserModel, add_to_class
+from models.classes import ClassModel, find_by_tag, find_by_admin, find_by_id
+from models.timetable import TimetableModel, find_by_ora, find_by_giorno_id, find_id_by_giorno_id
 from models.subjects import SubjectModel, find_subject_id
-from models.timetable import TimetableModel
+from models.friends import FriendModel
+from models.users import UserModel, add_to_class
+
 
 class CreateSubject(Resource):
 
-    #@jwt_required()
+    @jwt_required
     def post(self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         materia=request.args.get('subject')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
                     if find_subject_id(user.classe_id, materia):
@@ -25,9 +27,10 @@ class CreateSubject(Resource):
             return {"message":"user is not admin or is not in a class"}, 500
         return {"message":"user does not exist"}, 500
 
-    #@jwt_required()
+    @jwt_required
     def delete (self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         materia=request.args.get('subject')
         user=UserModel.find_by_mail(mail)
         if user:

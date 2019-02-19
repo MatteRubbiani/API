@@ -1,6 +1,6 @@
 from db import db
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models.classes import ClassModel, find_by_tag
 from models.users import UserModel
@@ -9,9 +9,10 @@ from models.subjects import SubjectModel, find_subject_id
 
 class CreateOrario(Resource):
 
-    #@jwt_required()
+    @jwt_required
     def post(self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
         ora=request.args.get('hour')
         materia=request.args.get('subject')

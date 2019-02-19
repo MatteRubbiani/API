@@ -12,14 +12,9 @@ class CreateClass(Resource):
 
     @jwt_required
     def post(self):
-        mail=request.args.get('mail')
-        classe=request.args.get('class')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         token=request.headers.get('Authorization')
-        return get_jwt_identity()
-        #return get_jwt_identity()
-
-        #return request.headers.get('Authorization')
-        #user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 return "You are already in a class"

@@ -1,6 +1,6 @@
 from db import db
 from flask_restful import Resource, request
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models.classes import ClassModel, find_by_id
 from models.users import UserModel
@@ -9,12 +9,11 @@ from models.subjects import SubjectModel, find_subject_id
 
 class OrarioGiorno(Resource):
 
-
+    @jwt_required
     def get(self):
-        mail=request.args.get('mail')
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
-        return[{"subject":"geometria","you":True, "yourMate":True}, {"subject":"italiano","you":False, "yourMate":True},{"subject":"ciao","you":False, "yourMate":True},{"subject":"banana","you":False, "yourMate":False}]
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.classe_id:
                 materie_id=find_by_giorno_id(user.classe_id, giorno)
@@ -26,7 +25,7 @@ class OrarioGiorno(Resource):
                             elenco.append("")
                         else:
                             elenco.append(materia.materia)
-                    return[{"subject":"geometria","you":True, "yourMate":True}, {"subject":"italiano","you":False, "yourMate":True},{"subject":"ciao","you":False, "yourMate":True},{"subject":"banana","you":False, "yourMate":False}]
+
                     return {"elenco":elenco},200
                 return {"elenco":""},200
             return {"message":"user has no class"}, 500

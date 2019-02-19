@@ -1,10 +1,12 @@
 from models.users import UserModel
 from flask_restful import Resource, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class FriendName(Resource):
+    @jwt_required
     def get (self):
-        mail=request.args.get('mail')
-        user=UserModel.find_by_mail(mail)
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
         if user:
             friend=UserModel.find_by_id(user.friend_id)
             return {"username":friend.username}, 200
