@@ -4,7 +4,7 @@ from models.classes import find_by_id
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class IsAdmin (Resource):
-    #@jwt_required()
+    @jwt_required
     def get (self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
