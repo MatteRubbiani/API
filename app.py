@@ -23,7 +23,6 @@ from resources.put import Put
 from resources.confirm_mail import ConfirmMail
 from resources.changepsw import ChangePassword
 from resources.ConfirmPassword import ConfirmPassword
-from resources.finalput import FinalPut
 from resources.name import Name
 from resources.friendName import FriendName
 from resources.authenticate import UserLogin, TokenRefresh
@@ -74,7 +73,6 @@ api.add_resource(OrarioGiorno, "/timetable/day")
 api.add_resource(Put, "/friend/put")
 api.add_resource(ChangePassword, "/changePassword")
 api.add_resource(ConfirmPassword, "/confirmPassword")
-api.add_resource(FinalPut, "/final/put")
 api.add_resource(Name, "/user/name")
 api.add_resource(FriendName, "/user/friend/name")
 api.add_resource(UserLogin, "/auth")

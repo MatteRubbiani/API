@@ -6,6 +6,8 @@ from flask_jwt_extended import (create_access_token,
                                 get_raw_jwt)
 from models.users import UserModel
 import hashlib, uuid
+
+
 class UserLogin(Resource):
     def post(self):
         mail=request.args.get('mail')
