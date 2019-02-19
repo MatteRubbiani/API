@@ -16,6 +16,7 @@ class JoinClass(Resource):
     def post(self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
+        tag=grequest.args.get('tag')
         if user:
             classe=find_by_tag(tag)
             if classe:
