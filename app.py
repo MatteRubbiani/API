@@ -28,6 +28,7 @@ from resources.friendName import FriendName
 from resources.authenticate import UserLogin, TokenRefresh
 from resources.classname import ClassName
 from resources.admins import Admins
+from resources.isInClass import  IsInClass
 
 from models.users import UserModel
 
@@ -81,7 +82,7 @@ api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
 api.add_resource(Admins, "/class/admin/names")
 api.add_resource(TokenRefresh, "/refresh")
-#api.add_resource(........., "user/hasclass")
+api.add_resource(IsInClass, "/user/hasclass")
 
 
 
