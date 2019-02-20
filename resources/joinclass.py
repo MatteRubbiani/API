@@ -3,7 +3,7 @@ from flask_restful import Resource, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models.classes import ClassModel, find_by_tag, find_by_id
-from models.users import UserModel, add_to_class, find_friend_by_username, class_mates
+from models.users import UserModel, add_to_class, find_friend_by_username, class_mates, find_mates_id
 from models.timetable import delete_timetable_by_classe_id, find_id_by_giorno_id
 from models.subjects import delete_subjects_by_class_id
 from models.friends import delete_slots_by_user_id
@@ -48,7 +48,7 @@ class JoinClass(Resource):
                         mate.friendship=False
                         mate.save_to_db()
                 if user.admin==True:
-                    amici=class_mates(user.classe_id)
+                    amici=class_mates_id(user.classe_id)
                     if len(amici)>1:
                         for i in amici:
                             friend=UserModel.find_by_id(i)

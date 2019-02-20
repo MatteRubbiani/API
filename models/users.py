@@ -62,6 +62,13 @@ def class_users (classe_id):
         for i in  users:
             list.append(i.username)
         return list
+def find_mates_id(classe_id):
+    users= UserModel.query.filter_by(classe_id=classe_id)
+    a=[]
+    for i in users:
+        a.append(i.id)
+    return a
+
 
 def class_mates (classe_id):
     users= UserModel.query.filter_by(classe_id=classe_id)
