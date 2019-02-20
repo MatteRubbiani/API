@@ -18,11 +18,21 @@ class Register(Resource):
         if user:
             if user.confirmed==True:
                 return "mail already taken", 413
-        now = datetime.datetime.now()
-        epsw=password.encode('utf-8')
-        hashed_password = hashlib.sha512(epsw).hexdigest()
-        user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
-        user.save_to_db()
+            now = datetime.datetime.now()
+            epsw=password.encode('utf-8')
+            hashed_password = hashlib.sha512(epsw).hexdigest()
+            user.username=username
+            user.password=hashed_password
+            user.creation_date=now
+            user.save_to_db()
+        else:
+            now = datetime.datetime.now()
+            epsw=password.encode('utf-8')
+            hashed_password = hashlib.sha512(epsw).hexdigest()
+            user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
+            user.save_to_db()
+
+
         s = URLSafeTimedSerializer("password1")
         token=s.dumps(mail, salt="emailconfirm")
         #link="http://127.0.0.1:5000/confirm/"+token
