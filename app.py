@@ -46,7 +46,7 @@ jwt = JWTManager (app)
 #  user=UserModel.find_by_id(identity)
     #return{"date":user.username}
 
-app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
+#app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
 
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(weeks=100)
