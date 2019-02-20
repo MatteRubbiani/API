@@ -17,7 +17,7 @@ class Register(Resource):
         user=UserModel.find_by_mail(mail)
         if user:
             if user.confirmed==True:
-                return "mail already taken", 400
+                return "mail already taken", 413
         now = datetime.datetime.now()
         epsw=password.encode('utf-8')
         hashed_password = hashlib.sha512(epsw).hexdigest()

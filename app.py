@@ -81,6 +81,8 @@ api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
 api.add_resource(Admins, "/class/admin/names")
 api.add_resource(TokenRefresh, "/refresh")
+#api.add_resource(........., "user/hasclass")
+
 
 
 

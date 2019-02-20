@@ -7,6 +7,7 @@ from models.users import UserModel
 from models.timetable import TimetableModel, find_by_ora, find_by_giorno_id
 from models.subjects import SubjectModel, find_subject_id
 
+#NON CREDO SERVIRA' MAI QUESTO ENDPOINT
 class OrarioGiorno(Resource):
 
     @jwt_required

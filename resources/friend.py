@@ -27,8 +27,8 @@ class Friend(Resource):
                 user.friendship=False
                 user.save_to_db
                 return {"message":"friendship requested"},200
-            return {"message":"mate does not exist"}, 500
-        return {"message":"user does not exist"}, 500
+            return {"message":"mate does not exist"}, 409
+        return {"message":"user does not exist"}, 402
 
 
     @jwt_required
@@ -49,5 +49,5 @@ class Friend(Resource):
                 user.friendship=False
                 user.save_to_db()
                 return {"message":"friend was removed but there was no friendship"}, 200
-            return {"message":"you don't have any friends"}, 500
-        return {"message":"user does not exist"}, 500
+            return {"message":"you don't have a mate"}, 404
+        return {"message":"user does not exist"}, 402

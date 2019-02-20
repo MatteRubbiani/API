@@ -18,5 +18,5 @@ class Admins (Resource):
                         a=a+i.username+","
                 b=a[:-1]
                 return {"username":b}, 200
-            return "user not in a class", 500
+            return "user not in a class", 403
         return "user does not exist", 500

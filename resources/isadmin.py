@@ -10,4 +10,4 @@ class IsAdmin (Resource):
         user=UserModel.find_by_id(current_user)
         if user:
             return {"message":user.admin}, 200
-        return {"message":"user does not exist"}, 500
+        return {"message":"user does not exist"}, 402

@@ -32,9 +32,9 @@ class Put (Resource):
                     newriga=FriendModel(None, user.id, orario.id, data)
                     newriga.save_to_db()
                     return {"message":"subject put in bag"}, 200
-                return "slot hour does not exist", 500
-            return "user has no class", 500
-        return "user does not exist", 500
+                return "slot hour does not exist", 412
+            return "user has no class", 403
+        return "user does not exist", 402
 
 
     @jwt_required

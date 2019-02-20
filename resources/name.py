@@ -8,5 +8,4 @@ class Name(Resource):
         user=UserModel.find_by_id(current_user)
         if user:
             return {"username":user.username}, 200
-
-        return {"meassege":"user does not exist"}, 500
+        return {"meassege":"user does not exist"}, 402

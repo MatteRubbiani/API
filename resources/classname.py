@@ -14,4 +14,4 @@ class ClassName(Resource):
             if classe:
                 return {"username":classe.nome}
             return {"message":"user has no class"}, 200
-        return {"message":"user does not exist"}, 500
+        return {"message":"user does not exist"}, 402

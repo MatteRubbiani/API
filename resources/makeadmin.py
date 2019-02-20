@@ -19,7 +19,7 @@ class MakeAdmin (Resource):
                         friend.admin=True
                         friend.save_to_db()
                         return {"message":"user made admin"}, 200
-                    return "mate does not exist", 500
-                return "user is not admin", 500
-            return "user is not in a class", 500
-        return "user does not exist", 500
+                    return "mate does not exist", 409
+                return "user is not admin", 405
+            return "user is not in a class", 403
+        return "user does not exist", 402

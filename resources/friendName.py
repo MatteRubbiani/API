@@ -8,7 +8,8 @@ class FriendName(Resource):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         if user:
-            friend=UserModel.find_by_id(user.friend_id)
-            return {"username":friend.username}, 200
-
-        return {"meassege":"user does not exist"}, 500
+            if user.friend_id:
+                friend=UserModel.find_by_id(user.friend_id)
+                return {"username":friend.username}, 200
+            return {"message":"user has no mate"}, 404
+        return {"meassege":"user does not exist"}, 402

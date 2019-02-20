@@ -19,13 +19,13 @@ class CreateSubject(Resource):
         if user:
             if user.admin==True:
                     if find_subject_id(user.classe_id, materia):
-                        return {"message":"subject already exists"}, 500
+                        return {"message":"subject already exists"}, 407
                     classe=find_by_id(user.classe_id)
                     materia_to_add=SubjectModel(None, classe.id, materia)
                     materia_to_add.save_to_db()
                     return {"message":"suject created successfully"}, 200
-            return {"message":"user is not admin or is not in a class"}, 500
-        return {"message":"user does not exist"}, 500
+            return {"message":"user is not admin or is not in a class"}, 405
+        return {"message":"user does not exist"}, 402
 
     @jwt_required
     def delete (self):
@@ -43,6 +43,6 @@ class CreateSubject(Resource):
                         i.save_to_db()
                     subject.delete_from_db()
                     return {"message":"subject deleted successfully"},200
-                return {"message":"subject does not exist"}, 500
-            return {"message":"user is not admin or is not in a class"},500
-        return {"message":"user does not exist"}, 500
+                return {"message":"subject does not exist"}, 407
+            return {"message":"user is not admin or is not in a class"},405
+        return {"message":"user does not exist"}, 402

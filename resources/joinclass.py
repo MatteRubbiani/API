@@ -22,14 +22,14 @@ class JoinClass(Resource):
             if classe:
                 mate= find_friend_by_username(classe.id, user.username)
                 if mate:
-                    return {"message":"change name"}, 500
+                    return {"message":"change name"}, 410
 
                 user.classe_id=classe.id
                 user.save_to_db()
                 return {"message":"user added to class succesfully"}, 200
 
-            return {"message":"class does not exist"} , 500
-        return {"message":"user does not exist"}, 500
+            return {"message":"class does not exist"}, 411
+        return {"message":"user does not exist"}, 402
 
     @jwt_required
     def delete (self):
@@ -40,7 +40,7 @@ class JoinClass(Resource):
                 delete_slots_by_user_id(user.id)
                 mate=UserModel.find_by_id(user.friend_id)
                 user.friend_id=None
-                user.friendship=True
+                user.friendship=False
                 user.save_to_db()
                 if mate:
                     if mate.friend_id==user.id:
@@ -78,5 +78,5 @@ class JoinClass(Resource):
                 user.classe_id=None
                 user.save_to_db()
                 return "user was not admin, user removed correctly", 200
-            return {"message":"user not in a class"}, 500
-        return {"message":"user does not exist"}, 500
+            return {"message":"user not in a class"}, 403
+        return {"message":"user does not exist"}, 402

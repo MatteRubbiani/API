@@ -14,4 +14,4 @@ class GotMate (Resource):
             if user.friend_id:
                 return {"message":"friendship requested"}, 200
             return{"message": False}, 200
-        return {"message": "user does not exist"}, 500
+        return {"message": "user does not exist"}, 402

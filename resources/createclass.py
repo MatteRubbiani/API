@@ -17,7 +17,7 @@ class CreateClass(Resource):
         classe=request.headers.get('classe')
         if user:
             if user.classe_id:
-                return "You are already in a class"
+                return{"message": "You are already in a class"}, 407
             tag=randomtag()
             class_to_add=ClassModel(None, tag, None, classe)
             class_to_add.save_to_db()
@@ -26,4 +26,4 @@ class CreateClass(Resource):
             user.classe_id=class_added.id
             user.save_to_db()
             return {"tag":tag}
-        return {"message":"user does not exist"},400
+        return {"message":"user does not exist"},402

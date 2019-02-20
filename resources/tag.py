@@ -14,11 +14,11 @@ class Tag (Resource):
             classe=find_by_id(user.classe_id)
             if classe:
                 return classe.tag
-            return "user not in a class"
-        return "user does not exist"
+            return "user not in a class", 403
+        return "user does not exist", 402
 
     @jwt_required
-    def post (self):    
+    def post (self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         if user:
@@ -28,6 +28,6 @@ class Tag (Resource):
                     classe.tag=randomtag()
                     classe.save_to_db()
                     return classe.tag
-                return "user is not admin"
-            return "user not in a class"
-        return "user does not exist"
+                return "user is not admin", 405
+            return "user not in a class", 403
+        return "user does not exist", 402

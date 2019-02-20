@@ -18,5 +18,5 @@ class Mates (Resource):
                               "Mail":"banana",
                               "IsAdmin":i.admin})
                 return a, 200
-            return "user not in a class", 500
-        return "user does not exist", 500
+            return "user not in a class", 403
+        return "user does not exist", 402

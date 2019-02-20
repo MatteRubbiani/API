@@ -39,6 +39,6 @@ class CreateOrario(Resource):
                         nuovo=TimetableModel(None,user.classe_id, giorno, ora, materia_id.id)
                         nuovo.save_to_db()
                         return {"mesaage":"stot created successfully"}, 200
-                    return {"message":"subject does not exist"},500
-            return {"message":"user is not in a class or is not an admin"},500
-        return {"message":"user does not exist"},500
+                    return {"message":"subject does not exist"},408
+            return {"message":"user is not in a class or is not an admin"},405
+        return {"message":"user does not exist"},402
