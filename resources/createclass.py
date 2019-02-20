@@ -14,7 +14,7 @@ class CreateClass(Resource):
     def post(self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
-        token=request.headers.get('Authorization')
+        classe=request.headers.get('classe')
         if user:
             if user.classe_id:
                 return "You are already in a class"

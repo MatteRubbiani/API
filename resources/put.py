@@ -110,5 +110,5 @@ class Put (Resource):
                                     "mate":mate})
                     return final
                 return []
-            return {"message":"you are not in a class"}, 500
-        return "user does not exist", 500
+            return {"message":"you are not in a class"}, 403
+        return "user does not exist", 402
