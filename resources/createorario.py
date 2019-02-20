@@ -16,7 +16,6 @@ class CreateOrario(Resource):
         giorno=request.args.get('day')
         ora=request.args.get('hour')
         materia=request.args.get('subject')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
                     existing=find_by_ora(user.classe_id, giorno, ora)
