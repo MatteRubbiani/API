@@ -48,7 +48,7 @@ class JoinClass(Resource):
                         mate.friendship=False
                         mate.save_to_db()
                 if user.admin==True:
-                    amici=class_mates_id(user.classe_id)
+                    amici=find_mates_id(user.classe_id)
                     if len(amici)>1:
                         for i in amici:
                             friend=UserModel.find_by_id(i)
