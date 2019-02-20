@@ -5,7 +5,7 @@ from models.users import UserModel
 class IsInClass (Resource):
 
     @jwt_required
-    def post (self):
+    def get (self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         if user:
