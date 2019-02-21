@@ -2,11 +2,23 @@ import smtplib
 from flask_restful import Resource
 from itsdangerous import URLSafeTimedSerializer
 from models.users import UserModel
+import os.path
+from flask_restful import Resource
+from flask import Flask, Response
 
 
 
 class ConfirmMail (Resource):
     def get (self, token):
+        def root_dir():  # pragma: no cover
+            return os.path.abspath(os.path.dirname(__file__))
+
+        def get_file(filename):  # pragma: no cover
+            try:
+                src = os.path.join(root_dir(), filename)
+                return open(src).read()
+            except IOError as exc:
+                return str(exc)
         s = URLSafeTimedSerializer("password1")
         try:
             mail=s.loads(token, salt="emailconfirm")
@@ -14,7 +26,12 @@ class ConfirmMail (Resource):
             if user.confirmed==False:
                 user.confirmed=True
                 user.save_to_db()
+                content = get_file('userConfirmed.html')
+                return Response(content, mimetype="text/html")
+
                 return "user confirmed"
-            return "user already confirmed"
+            content = get_file('userConfirmed.html')
+            return Response(content, mimetype="text/html")
         except:
-            return "your token is expired"
+            content = get_file('userConfirmed.html')
+            return Response(content, mimetype="text/html")
