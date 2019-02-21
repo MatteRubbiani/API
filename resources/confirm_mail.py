@@ -28,10 +28,11 @@ class ConfirmMail (Resource):
                 user.save_to_db()
                 content = get_file('userConfirmed.html')
                 return Response(content, mimetype="text/html")
-
-                return "user confirmed"
-            content = get_file('userConfirmed.html')
+            content = get_file('userAlreadyConfirmed.html')
             return Response(content, mimetype="text/html")
         except:
-            content = get_file('userConfirmed.html')
+            if token:
+                content = get_file('tokenExpired.html')
+                return Response(content, mimetype="text/html")
+            content = get_file('noToken.html')
             return Response(content, mimetype="text/html")
