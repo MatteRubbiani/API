@@ -10,7 +10,7 @@ class GotMate (Resource):
         user=UserModel.find_by_id(current_user)
         if user:
             if user.friendship==True:
-                    return {"frienship":True},200
+                    return {"message":True},200
             if user.friend_id:
                 return {"message":True}, 201
             return{"message": False}, 200

@@ -15,7 +15,6 @@ class Friend(Resource):
         if user:
             if user.friend_id:
                 return "hai gia' un amico", 407
-
             if mate:
                 if mate.id==user.id:
                     return "sei un poveraccio", 413
