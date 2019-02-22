@@ -44,6 +44,11 @@ class UserModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def find_all(self):
+        return FriendModel.query.filter_by()
+
+
     def json(self):
         return {"id":self.id, "mail":self.mail, "username":self.username, "password":self.password, "class":self.classe_id, "friend":self.friend_id}
 

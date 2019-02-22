@@ -26,9 +26,6 @@ class FriendModel(db.Model):
     @classmethod
     def find_by_orario_id(cls, user_id, orario_id):
         return FriendModel.query.filter_by(user_id=user_id, orario_id=orario_id).first()
-    @classmethod
-    def find_all(self):
-        return FriendModel.query.filter_by()
 
 
 
