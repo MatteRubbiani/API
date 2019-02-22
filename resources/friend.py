@@ -13,7 +13,7 @@ class Friend(Resource):
         amico=request.args.get('friend')
         mate= find_friend_by_username(user.classe_id, amico)
         if user:
-            if mate.friend_id:
+            if user.friend_id:
                 return "hai gia' un amico", 407
 
             if mate:
