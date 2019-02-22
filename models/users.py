@@ -46,7 +46,7 @@ class UserModel(db.Model):
 
     @classmethod
     def find_all(self):
-        return FriendModel.query.filter_by()
+        return UserModel.query.filter_by()
 
 
     def json(self):
