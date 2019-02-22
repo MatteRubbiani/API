@@ -27,11 +27,9 @@ from resources.name import Name
 from resources.friendName import FriendName
 from resources.authenticate import UserLogin, TokenRefresh
 from resources.classname import ClassName
-from resources.admins import Admins
 from resources.isInClass import  IsInClass
 from resources.removeFromClass import RemoveFromClass
-
-from models.users import UserModel
+from resources.EliminaUtenti import EliminaUtenti
 
 
 app= Flask(__name__)
@@ -43,10 +41,7 @@ api=Api(app)
 
 
 jwt = JWTManager (app)
-#@jwt.user_claims_loader
-#def add_claims(identity):
-#  user=UserModel.find_by_id(identity)
-    #return{"date":user.username}
+
 
 #app.config['JWT_AUTH_USERNAME_KEY'] = 'mail'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
@@ -81,11 +76,10 @@ api.add_resource(Name, "/user/name")
 api.add_resource(FriendName, "/user/friend/name")
 api.add_resource(UserLogin, "/auth")
 api.add_resource(ClassName, "/class/name")
-api.add_resource(Admins, "/class/admin/names")
 api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(IsInClass, "/user/hasclass")
 api.add_resource(RemoveFromClass, "/user/remove/class")
-
+api.add_resource(EliminaUtenti, "/user/remove/all")
 
 
 
