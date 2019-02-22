@@ -10,7 +10,7 @@ class MakeAdmin (Resource):
     def post (self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
-        friendusername=request.args.get('friendusername')
+        friendusername=request.args.get('friend') 
         if user:
             if user.classe_id:
                 if user.admin==True:

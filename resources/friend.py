@@ -12,10 +12,12 @@ class Friend(Resource):
         user=UserModel.find_by_id(current_user)
         amico=request.args.get('friend')
         if user:
+            if mate.friend_id:
+                return "hai gia' un amico", 407
             mate= find_friend_by_username(user.classe_id, amico)
             if mate:
                 if mate.id==user.id:
-                    return "sei un poveraccio"
+                    return "sei un poveraccio", 413
                 user.friend_id=mate.id
                 user.save_to_db()
                 if mate.friend_id==user.id:
