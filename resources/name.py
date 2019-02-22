@@ -8,5 +8,6 @@ class Name(Resource):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         if user:
-            return {"username":user.username}, 200
+            if user.confirmed==True:
+                return {"username":user.username}, 200
         return {"meassege":"user does not exist"}, 402
