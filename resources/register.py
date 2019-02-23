@@ -5,6 +5,7 @@ import smtplib
 import hashlib, uuid
 
 
+
 from db import db
 
 from models.users import UserModel
@@ -16,6 +17,7 @@ class Register(Resource):
         password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
         if user:
+            #return user.confirmed
             if user.confirmed==True:
                 return "mail already taken", 413
             now = datetime.datetime.now()
