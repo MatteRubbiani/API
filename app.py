@@ -30,6 +30,7 @@ from resources.classname import ClassName
 from resources.isInClass import  IsInClass
 from resources.removeFromClass import RemoveFromClass
 from resources.EliminaUtenti import EliminaUtenti
+from resources.subjects import GetSubjects
 
 
 app= Flask(__name__)
@@ -80,6 +81,7 @@ api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(IsInClass, "/user/hasclass")
 api.add_resource(RemoveFromClass, "/user/remove/class")
 api.add_resource(EliminaUtenti, "/user/remove/all")
+api.add_resource(GetSubjects, "/subject")
 
 
 
