@@ -12,7 +12,6 @@ class ClassName(Resource):
         if user:
             classe=find_by_id(user.classe_id)
             if classe:
-                return {"username":"2B"}
                 return {"username":classe.nome}
             return {"message":"user has no class"}, 200
         return {"message":"user does not exist"}, 402
