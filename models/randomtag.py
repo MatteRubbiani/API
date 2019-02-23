@@ -1,17 +1,22 @@
 import time
 import string
 import random
+from classes import find_by_tag
 
 def randomtag():
+
     time1=time.time()
-    time2=time1
-    letters=""
+    a=str(int(time1))
+    b=a[-2:]
+    c=b[:1]
+    d=b[1:]
 
-    i=5
-    while i>0:
-        letters=letters+random.choice(string.ascii_letters)
-        i=i-1
 
-    tag=letters+(str(time2))
-    tag1 = tag.replace(".", "")
-    return  tag1
+    while (True):
+        i=6
+        tag=""
+        while i>0:
+            tag=tag+random.choice(string.ascii_letters)
+            i=i-1
+        if find_by_tag(tag) is None:
+            return d+tag+c
