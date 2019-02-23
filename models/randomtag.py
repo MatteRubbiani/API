@@ -1,7 +1,7 @@
 import time
 import string
 import random
-from classes import find_by_tag
+from models.classes import find_by_tag
 
 def randomtag():
 
