@@ -10,6 +10,5 @@ class GetSubjects (Resource):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         if user:
-
-            return find_by_classe_id(user.classe_id), 403
+            return find_by_classe_id(user.classe_id), 200
         return "user does not exist", 402
