@@ -14,12 +14,12 @@ class CreateClass(Resource):
     def post(self):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
-        classe=request.headers.get('classe')
+        classe=request.args.get('classe')
         if user:
             if user.classe_id:
                 return{"message": "You are already in a class"}, 407
             tag=randomtag()
-            class_to_add=ClassModel(None, tag, None, classe)
+            class_to_add=ClassModel(None, tag, None, "classe")
             class_to_add.save_to_db()
             class_added=find_by_tag(tag)
             user.admin=True
