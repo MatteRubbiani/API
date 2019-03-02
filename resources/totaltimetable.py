@@ -17,8 +17,8 @@ class OrarioTotale(Resource):
         if user:
             if user.classe_id:
                 orario2=TimetableModel.find_all_by_classe_id(user.classe_id)
-                orario1=sorted(orario2, key=lambda x: x.giorno_id)
-                orario=sorted(orario1, key=lambda x: x.ora)
+                orario1=sorted(orario2, key=lambda x: int(x.giorno_id) if x.giorno_id is not None  else 0)
+                orario=sorted(orario1, key=lambda x:  int(x.ora) if x.ora is not None  else 0)
                 a=[]
                 b={}
                 for i in range(1,8):
