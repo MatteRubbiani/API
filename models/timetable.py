@@ -36,6 +36,11 @@ class TimetableModel(db.Model):
         a=TimetableModel.query.filter_by(classe_id=classe_id, giorno_id=giorno_id)
         return a
 
+    @classmethod
+    def find_all_by_classe_id (cls, classe_id):
+        a=TimetableModel.query.filter_by(classe_id=classe_id)
+        return a
+
 
 
     def delete_from_db(self):

@@ -18,7 +18,7 @@ from resources.isadmin import IsAdmin
 from resources.gotmate import GotMate
 from resources.createsubject import CreateSubject
 from resources.createorario import CreateOrario
-from resources.daytimetable import OrarioGiorno
+from resources.totaltimetable import OrarioTotale
 from resources.put import Put
 from resources.confirm_mail import ConfirmMail
 from resources.changepsw import ChangePassword
@@ -69,7 +69,7 @@ api.add_resource(IsAdmin, "/user/isadmin")
 api.add_resource(GotMate, "/user/gotmate")
 api.add_resource(CreateSubject, "/subject/create")
 api.add_resource(CreateOrario, "/timetable/create")
-api.add_resource(OrarioGiorno, "/timetable/day")
+api.add_resource(OrarioTotale, "/timetable/day")
 api.add_resource(Put, "/friend/put")
 api.add_resource(ChangePassword, "/changePassword")
 api.add_resource(ConfirmPassword, "/confirmPassword")
