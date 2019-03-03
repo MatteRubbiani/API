@@ -31,7 +31,7 @@ from resources.isInClass import  IsInClass
 from resources.removeFromClass import RemoveFromClass
 from resources.EliminaUtenti import EliminaUtenti
 from resources.subjects import GetSubjects
-from resources.GetSubjectsIOS import PutIOS
+from resources.getSubjectsIOS import PutIOS
 
 
 app= Flask(__name__)
