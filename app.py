@@ -31,6 +31,7 @@ from resources.isInClass import  IsInClass
 from resources.removeFromClass import RemoveFromClass
 from resources.EliminaUtenti import EliminaUtenti
 from resources.subjects import GetSubjects
+from resources.GetSubjectsIOS import PutIOS
 
 
 app= Flask(__name__)
@@ -82,6 +83,7 @@ api.add_resource(IsInClass, "/user/hasclass")
 api.add_resource(RemoveFromClass, "/user/remove/class")
 api.add_resource(EliminaUtenti, "/user/remove/all")
 api.add_resource(GetSubjects, "/subject")
+api.add_resource(PutIOS, "/friend/put/ios")
 
 
 
