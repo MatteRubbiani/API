@@ -16,14 +16,14 @@ class PutIOS (Resource):
         return {
     "slenco": [
         {
-            "subject": null,
-            "you": false,
-            "mate": false
+            "subject": None,
+            "you": False,
+            "mate": False
         },
         {
             "subject": "francese",
-            "you": false,
-            "mate": false
+            "you": False,
+            "mate": False
         }
     ]
 }
