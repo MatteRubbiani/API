@@ -11,8 +11,23 @@ from models.friends import FriendModel
 
 class PutIOS (Resource):
 
-    @jwt_required
+    #@jwt_required
     def get (self):
+        return {
+    "slenco": [
+        {
+            "subject": null,
+            "you": false,
+            "mate": false
+        },
+        {
+            "subject": "francese",
+            "you": false,
+            "mate": false
+        }
+    ]
+}
+        """
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         giorno=request.args.get('day')
@@ -62,4 +77,4 @@ class PutIOS (Resource):
                     return {"slenco":final}
                 return []
             return {"message":"you are not in a class"}, 403
-        return "user does not exist", 402
+        return "user does not exist", 402"""
