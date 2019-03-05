@@ -6,7 +6,7 @@ from flask_jwt_extended import (create_access_token,
                                 get_raw_jwt)
 from models.users import UserModel
 import hashlib, uuid
-import timedelta
+from datetime import timedelta
 
 class UserLogin(Resource):
     def post(self):
