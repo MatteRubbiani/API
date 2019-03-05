@@ -6,7 +6,7 @@ from flask_jwt_extended import (create_access_token,
                                 get_raw_jwt)
 from models.users import UserModel
 import hashlib, uuid
-
+import timedelta
 
 class UserLogin(Resource):
     def post(self):
@@ -15,7 +15,8 @@ class UserLogin(Resource):
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
         if user: #and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
-            access_token=create_access_token(identity=user.id, fresh=True)
+            expires = datetime.timedelta(days=365)
+            access_token=create_access_token(identity=user.id, fresh=True, expires_delta=expires)
             refresh_token=create_refresh_token(user.id)
             return {"access_token":access_token,
                 "refresh_token":refresh_token
@@ -28,5 +29,6 @@ class TokenRefresh(Resource):
         current_user=get_jwt_identity()
         #a=get_raw_jwt()
         #return a["iat"] questo E' PER PENDERE DATA DI CRAZIONE REFRESH TOKEN
-        new_token=create_access_token(identity=current_user, fresh=False)
+        expires = datetime.timedelta(days=365)
+        new_token=create_access_token(identity=current_user, fresh=False, expires_delta=expires)
         return {"access_token":new_token}

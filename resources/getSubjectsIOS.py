@@ -14,7 +14,7 @@ class PutIOS (Resource):
     #@jwt_required
     def get (self):
         return {
-    "slenco": [
+    "elenco": [
         {
             "subject": None,
             "you": False,
