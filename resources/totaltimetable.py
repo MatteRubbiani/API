@@ -32,7 +32,7 @@ class OrarioTotale(Resource):
                         if materia:
                             if materia.materia:
                                 materie.append(materia.materia)
-                            else:
-                                materie.append("")
+                        else:
+                            materie.append("")
                     b.update({i: materie})
                 return b
