@@ -32,7 +32,6 @@ class CreateSubject(Resource):
         current_user=get_jwt_identity()
         user=UserModel.find_by_id(current_user)
         materia=request.args.get('subject')
-        user=UserModel.find_by_mail(mail)
         if user:
             if user.admin==True:
                 subject=find_subject_id(user.classe_id, materia)
