@@ -30,6 +30,9 @@ class OrarioTotale(Resource):
                     for y in a:
                         materia=SubjectModel.find_by_id(y)
                         if materia:
-                            materie.append(materia.materia)
+                            if materia.materia:
+                                materie.append(materia.materia)
+                            else:
+                                materie.append("")
                     b.update({i: materie})
                 return b
