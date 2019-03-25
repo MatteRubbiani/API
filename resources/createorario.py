@@ -22,7 +22,7 @@ class CreateOrario(Resource):
                     materia_id=find_subject_id(user.classe_id, materia)
                     if existing:
                         if materia==None:
-                            existing.materia=None
+                            existing.materia_id=None
                             existing.save_to_db()
                             return {"message":"slot subject set to empty"}, 200
                         if materia_id:
@@ -37,7 +37,7 @@ class CreateOrario(Resource):
                     if materia_id:
                         nuovo=TimetableModel(None,user.classe_id, giorno, ora, materia_id.id)
                         nuovo.save_to_db()
-                        return {"mesaage":"stot created successfully"}, 200
+                        return {"message":"stot created successfully"}, 200
                     return {"message":"subject does not exist"},408
             return {"message":"user is not in a class or is not an admin"},405
         return {"message":"user does not exist"},402

@@ -11,3 +11,14 @@ class Name(Resource):
             if user.confirmed==True:
                 return {"username":user.username}, 200
         return {"meassege":"user does not exist"}, 402
+
+    @jwt_required
+    def post (self):
+        current_user=get_jwt_identity()
+        user=UserModel.find_by_id(current_user)
+        name=request.args.get('name')
+        if user:
+            if user.confirmed==True:
+                user.username = name 
+                return {"username":user.username}, 200
+        return {"meassege":"user does not exist"}, 402
