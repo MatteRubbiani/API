@@ -14,7 +14,7 @@ class UserLogin(Resource):
         password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
-        if user: #and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
+        if user and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
             #expires = datetime.timedelta(days=365)  , expires_delta=expires
             access_token=create_access_token(identity=user.id, fresh=True)
             refresh_token=create_refresh_token(user.id)
