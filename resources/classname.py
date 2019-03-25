@@ -27,6 +27,7 @@ class ClassName(Resource):
                     classe = find_by_id(user.classe_id)
                     if classe:
                         classe.nome=className
+                        return className
                         classe.save_to_db()
                         return {"message":classe.nome}, 200
                     return "banana"
