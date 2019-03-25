@@ -24,6 +24,7 @@ class ChangePassword(Resource):
         if user:
             if True:#user.password==hashlib.sha512(epsw).hexdigest():
                 user.password=hashlib.sha512(newpsw).hexdigest()
+                user.save_to_db()
 
                 return {"message":"ok"}, 200
             return {"message":"wrong password"}, 414
