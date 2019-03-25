@@ -24,7 +24,7 @@ class ClassName(Resource):
         if user:
             if user.admin==True:
                     classe = find_by_id(user.classe_id)
-                    classe.classe = calssName
+                    classe.classe = className
                     return {"message":"suject created successfully"}, 200
             return {"message":"user is not admin or is not in a class"}, 405
         return {"message":"user does not exist"}, 402

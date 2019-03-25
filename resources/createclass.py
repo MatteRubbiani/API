@@ -19,7 +19,7 @@ class CreateClass(Resource):
             if user.classe_id:
                 return{"message": "You are already in a class"}, 407
             tag=randomtag()
-            class_to_add=ClassModel(None, tag, None, "classe")
+            class_to_add=ClassModel(None, tag, None, classe)
             class_to_add.save_to_db()
             class_added=find_by_tag(tag)
             user.admin=True
