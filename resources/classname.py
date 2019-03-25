@@ -26,6 +26,6 @@ class ClassName(Resource):
                     classe = find_by_id(user.classe_id)
                     classe.nome = className
                     classe.save_to_db()
-                    return {"message":classe.name}, 200
+                    return {"message":classe.nome}, 200
             return {"message":"user is not admin or is not in a class"}, 405
         return {"message":"user does not exist"}, 402
