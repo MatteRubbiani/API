@@ -19,6 +19,7 @@ class Name(Resource):
         name=request.args.get('name')
         if user:
             if user.confirmed==True:
-                user.username = name 
+                user.username = name
+                user.save_to_db()
                 return {"username":user.username}, 200
         return {"meassege":"user does not exist"}, 402
