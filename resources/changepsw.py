@@ -22,7 +22,7 @@ class ChangePassword(Resource):
         epsw=old.encode('utf-8')
         newpsw=new.encode('utf-8')
         if user:
-            if True user.password==hashlib.sha512(epsw).hexdigest():
+            if user.password==hashlib.sha512(epsw).hexdigest():
                 user.password=hashlib.sha512(newpsw).hexdigest()
                 user.save_to_db()
 
