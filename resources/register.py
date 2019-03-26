@@ -4,7 +4,7 @@ from itsdangerous import URLSafeTimedSerializer
 import smtplib
 import hashlib, uuid
 
-
+import time
 
 from db import db
 
@@ -26,12 +26,13 @@ class Register(Resource):
             user.username=username
             user.password=hashed_password
             user.creation_date=now
+            user.password_change=time.time()
             user.save_to_db()
         else:
             now = datetime.datetime.now()
             epsw=password.encode('utf-8')
             hashed_password = hashlib.sha512(epsw).hexdigest()
-            user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False)
+            user=UserModel(None, mail, username, hashed_password, None, None, now, False, False, False, time.time())
             user.save_to_db()
 
 

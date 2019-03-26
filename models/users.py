@@ -13,9 +13,10 @@ class UserModel(db.Model):
     friendship=db.Column(db.Boolean)
     admin=db.Column(db.Boolean)
     confirmed=db.Column(db.Boolean)
+    password_change=db.Column(db.Integer)
 
 
-    def __init__(self, id, mail, username, password, classe_id, friend_id, creation_date, friendship, admin, confirmed):
+    def __init__(self, id, mail, username, password, classe_id, friend_id, creation_date, friendship, admin, confirmed, password_change):
         self.id=id
         self.mail=mail
         self.username=username
@@ -26,6 +27,7 @@ class UserModel(db.Model):
         self.friendship=friendship
         self.admin=admin
         self.confirmed=confirmed
+        self.password_change=password_change
 
 
     @classmethod

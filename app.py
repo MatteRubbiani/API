@@ -50,9 +50,9 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=5)
 
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(weeks=100)
 
-#@app.before_first_request
-#def create_table():
-    #db.create_all()
+@app.before_first_request
+def create_table():
+    db.create_all()
 
 
 

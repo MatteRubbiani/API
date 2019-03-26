@@ -8,14 +8,14 @@ from models.users import UserModel
 import hashlib, uuid
 import datetime
 from datetime import timedelta
-
+import time
 class UserLogin(Resource):
     def post(self):
         mail=request.args.get('mail')
         password=request.args.get('password')
         user=UserModel.find_by_mail(mail)
         epsw=password.encode('utf-8')
-        if user and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
+        if user: #and user.password==hashlib.sha512(epsw).hexdigest() and user.confirmed==True:
             expires = datetime.timedelta(days=365)
             access_token=create_access_token(identity=user.id, expires_delta=expires, fresh=True)
             refresh_token=create_refresh_token(user.id)
@@ -28,8 +28,12 @@ class TokenRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
         current_user=get_jwt_identity()
-        #a=get_raw_jwt()
-        #return a["iat"] questo E' PER PENDERE DATA DI CRAZIONE REFRESH TOKEN
-        #expires = datetime.timedelta(days=365)
-        new_token=create_access_token(identity=current_user, fresh=False)
-        return {"access_token":new_token}
+        a=get_raw_jwt()
+        user=UserModel.find_by_id(current_user)
+        #return str(a["iat"])+" "+str(int(time.time()))
+        #return str(user.password_change)+" "+str(a["iat"])
+        if  a["iat"]>=user.password_change:
+            expires = datetime.timedelta(days=365)
+            new_token=create_access_token(identity=current_user, fresh=False)
+            return {"access_token":new_token}
+        return "password was changed"

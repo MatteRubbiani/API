@@ -2,6 +2,7 @@ from db import db
 from flask_restful import Resource, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import hashlib, uuid
+import time
 
 from models.classes import ClassModel, find_by_tag
 from models.users import UserModel
@@ -24,7 +25,9 @@ class ChangePassword(Resource):
         if user:
             if user.password==hashlib.sha512(epsw).hexdigest():
                 user.password=hashlib.sha512(newpsw).hexdigest()
+                user.password_change=time.time()
                 user.save_to_db()
+
 
                 return {"message":"ok"}, 200
             return {"message":"wrong password"}, 414
