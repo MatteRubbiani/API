@@ -65,7 +65,7 @@ Team SmartMates
         server.ehlo()
         server.starttls()
 
-        server.login("smartmates2018@gmail.com", "smartmates1")
+        server.login("smartmates2018@gmail.com", "cognento1")
         server.sendmail("smartmates2018gmail.com", mail, message)
 
         return "user created, to be confirmed", 200
