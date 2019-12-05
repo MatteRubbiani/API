@@ -6,3 +6,5 @@ Flask-SQLAlchemy
 uwsgi
 psycopg2
 datetime
+Pillow
+numpy
